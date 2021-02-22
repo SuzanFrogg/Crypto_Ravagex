@@ -39,6 +39,7 @@ public class Client {
         fluxSortant.println(messageAEnvoyer);
 
         do {
+
             //Reception du message du serveur
             messageRecu = this.fluxEntrant.readLine();
             System.out.println("< "+ messageRecu);
@@ -52,6 +53,7 @@ public class Client {
                     break;
             }
             System.out.println("> "+messageAEnvoyer);
+            fluxSortant.println(messageAEnvoyer);
         } while(!messageRecu.equals("END")) ;
         
 
