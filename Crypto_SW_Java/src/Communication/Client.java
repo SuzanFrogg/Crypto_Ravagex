@@ -31,27 +31,30 @@ public class Client {
     
     public void boucleDeDiscussion() throws IOException {
         String messageRecu = "" ;
-        String messageAEnvoyer = "" ;
+        //MDP Phase 2 : ANEWHOPE
+        //MDP Phase 3 : Mvy aol Ltwlyvy (Algo de Cesar +7) : For the Emperor
+        String messageAEnvoyer = "For the Emperor" ;
         System.out.println("−− Debut de la transmission −−") ;
+        //Envoi du mdp
+        fluxSortant.println(messageAEnvoyer);
+
         do {
             //Reception du message du serveur
             messageRecu = this.fluxEntrant.readLine();
             System.out.println("< "+ messageRecu);
             //Envoi du message de réponse
             switch (messageRecu) {
-                case "Bonjour":
-                    messageAEnvoyer = "Bonjour";
+                case "END":
+                    messageAEnvoyer = "";
                     break;
-                case "Ca va ?":
-                    messageAEnvoyer = "Oui";
-                    break;
-                case "FIN":
-                    messageAEnvoyer = "FIN";
+                default:
+                    messageAEnvoyer = messageRecu;
                     break;
             }
-            fluxSortant.println(messageAEnvoyer);
-            System.out.println(">"+messageAEnvoyer);
-        } while(!messageRecu.equals("FIN")) ;
+            System.out.println("> "+messageAEnvoyer);
+        } while(!messageRecu.equals("END")) ;
+        
+
         System.out.println("−− Fin de la transmission −−") ;
     }
 }
