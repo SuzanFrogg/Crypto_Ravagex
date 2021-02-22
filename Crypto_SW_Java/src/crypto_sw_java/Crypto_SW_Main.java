@@ -20,7 +20,11 @@ public class Crypto_SW_Main {
             Client client = new Client();
             client.connexion();
             client.creationFlux();
-            client.boucleDeDiscussion();
+           
+            //MDP Communication Phase 2 : ANEWHOPE
+            //MDP Communication Phase 3 : Mvy aol Ltwlyvy (Algo de Cesar +7) : For the Emperor
+            client.boucleDeDiscussion("For the Emperor");
+            
         } catch (IOException ex) {
             Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
         }
