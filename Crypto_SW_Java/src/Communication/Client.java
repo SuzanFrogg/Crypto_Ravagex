@@ -29,34 +29,48 @@ public class Client {
         this.fluxSortant = new PrintWriter(this.socket.getOutputStream(), true);
     }
     
-    public void boucleDeDiscussion() throws IOException {
+    public void boucleDeDiscussion(String mdp) throws IOException {
         String messageRecu = "" ;
-        //MDP Phase 2 : ANEWHOPE
-        //MDP Phase 3 : Mvy aol Ltwlyvy (Algo de Cesar +7) : For the Emperor
-        String messageAEnvoyer = "For the Emperor" ;
+        String messageAEnvoyer = "" ;
+        
         System.out.println("−− Debut de la transmission −−") ;
-        //Envoi du mdp
-        fluxSortant.println(messageAEnvoyer);
+       
+        
+        //envoie mdp
+        messageAEnvoyer = mdp;
+        sendMessage(messageAEnvoyer);
 
         do {
 
             //Reception du message du serveur
-            messageRecu = this.fluxEntrant.readLine();
-            System.out.println("< "+ messageRecu);
+            messageRecu = getMessage();
+            
             //Envoi du message de réponse
-            switch (messageRecu) {
-                case "END":
-                    messageAEnvoyer = "";
-                    break;
-                default:
-                    messageAEnvoyer = messageRecu;
-                    break;
-            }
-            System.out.println("> "+messageAEnvoyer);
-            fluxSortant.println(messageAEnvoyer);
+            messageAEnvoyer = messageRecu;
+            sendMessage(messageAEnvoyer);
+
+            
         } while(!messageRecu.equals("END")) ;
         
 
         System.out.println("−− Fin de la transmission −−") ;
+    }
+    
+    /**
+     * envoie un message au jar
+     * @param message 
+     */
+    private void sendMessage(String message)
+    {
+        fluxSortant.println(message);
+        System.out.println("> "+message);
+    }
+    
+    private String getMessage() throws IOException
+    {
+        String messageRecu = this.fluxEntrant.readLine();
+        System.out.println("< "+ messageRecu);
+        
+        return messageRecu;
     }
 }
