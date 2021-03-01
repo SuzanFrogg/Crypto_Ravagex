@@ -51,9 +51,18 @@ public class MotBinaire {
 
     }
     
-    //Constructeur à partir d'un byte
+    /**
+     *  Constructeur à partir d'un byte
+     * @param b un byte
+     */
     public MotBinaire(byte b) {
-        //TODO
+        this.taille = 8;
+        this.listeBits = new BitSet();
+        //Création d'un array byte avec le byte à l'intérieur
+        byte bits[] = new byte[1];
+        bits[0] = b;
+        //Changement de la listeBits avec la value de bits
+        this.listeBits = BitSet.valueOf(bits);
     }
     
     //Constructeur à partir d'un caractère (UTF-8)
