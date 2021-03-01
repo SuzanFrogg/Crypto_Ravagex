@@ -173,8 +173,10 @@ public class MotBinaire {
      * @return le résultat du xor
      */
     public MotBinaire xor(MotBinaire mot2) {
-        //TODO
-        return null;
+        BitSet bits = mot2.getBitSet();
+        bits.xor(bits);
+        MotBinaire mbRes = new MotBinaire(bits,mot2.taille);
+        return mbRes;
     }
     
     /**
@@ -183,8 +185,26 @@ public class MotBinaire {
      * @return le résultat de l'addition
      */
      public MotBinaire additionMod2p32(MotBinaire mot2) {
-         //TODO
-         return null;
+        int retenue = 0;
+        boolean bool = false;
+        BitSet bR = new BitSet();
+        BitSet bM1 = this.getBitSet();
+        BitSet bM2 = mot2.getBitSet();
+         
+        for(int i =0; i < 31; i++){
+            int bM1INT = bM1.get(i) ? 1 : 0;
+            int bM2INT = bM2.get(i) ? 1 : 0;
+            int calc = (retenue + bM1INT + bM2INT) % 2;
+             
+            if(calc == 1){
+                bool = true;
+            }
+            
+            bR.set(i, bool);
+        }
+        
+        MotBinaire mbRes = new MotBinaire(bR,mot2.taille);     
+        return mbRes;
      }
     
      /**
