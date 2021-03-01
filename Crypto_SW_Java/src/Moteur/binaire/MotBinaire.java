@@ -31,15 +31,14 @@ public class MotBinaire {
      * @param valeur long
      */
     public MotBinaire(long valeur) {
-       
         this.listeBits = new BitSet();
         
         int pos = 0;
         while(valeur != 0) //tant que le long n'a pas été parcouru
         {
-            int binaireInt = (int) (valeur %  2);
+            int binaireInt = (int)(valeur % 2);
             
-            boolean bin = binaireInt == 1; //set true si 0 et false si 1
+            boolean bin = binaireInt == 1; //true si 1 et false si 0
             this.listeBits.set(pos, bin);
             
             valeur /= 2;
@@ -47,8 +46,6 @@ public class MotBinaire {
         }
         
         this.taille = pos;
-        
-
     }
     
     /**
@@ -67,7 +64,20 @@ public class MotBinaire {
     
     //Constructeur à partir d'un caractère (UTF-8)
     public MotBinaire(char c) {
-        //TODO
+        this.listeBits = new BitSet();
+        this.taille = 8; //UTF8
+        int code = (int)c;
+        
+        //On regarde pour la taille
+        for(int i=0;i<this.taille;i++) {
+            //On regarde si le code est divisible par 2 : donc si on peut mettre 1 pour le bit actuel
+            int binaireInt = (int)(code % 2);
+            
+            boolean bin = binaireInt == 1;
+            this.listeBits.set(i, bin);
+            
+            code /= 2;
+        }
     }
     
     //Constructeur à partir d'une succession de 1 et de 0 
