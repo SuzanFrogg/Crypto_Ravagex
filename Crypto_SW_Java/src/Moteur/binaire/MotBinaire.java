@@ -26,9 +26,29 @@ public class MotBinaire {
         } 
     }
 	
-    //Constructeur à partir d'un long
+    /**
+     * Constructeur à partir d'un long
+     * @param valeur long
+     */
     public MotBinaire(long valeur) {
-        //TODO
+       
+        this.listeBits = new BitSet();
+        
+        int pos = 0;
+        while(valeur != 0) //tant que le long n'a pas été parcouru
+        {
+            int binaireInt = (int) (valeur %  2);
+            
+            boolean bin = binaireInt == 1; //set true si 0 et false si 1
+            this.listeBits.set(pos, bin);
+            
+            valeur /= 2;
+            pos += 1; //incrémentation de la position
+        }
+        
+        this.taille = pos;
+        
+
     }
     
     //Constructeur à partir d'un byte

@@ -1,6 +1,7 @@
 package crypto_sw_java;
 
 import Communication.Client;
+import Moteur.binaire.MotBinaire;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class Crypto_SW_Main {
             Client client = new Client();
             client.connexion();
             client.creationFlux();
-           
+            
             //MDP Communication Phase 2 : ANEWHOPE
             //MDP Communication Phase 3 : Mvy aol Ltwlyvy (Algo de Cesar +7) : For the Emperor
             client.boucleDeDiscussion("For the Emperor");
@@ -28,6 +29,8 @@ public class Crypto_SW_Main {
         } catch (IOException ex) {
             Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+
         
     }
     
