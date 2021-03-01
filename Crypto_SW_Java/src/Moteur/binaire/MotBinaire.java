@@ -102,16 +102,31 @@ public class MotBinaire {
      * @return un entier
      */
     public int asInteger() {
-        //TODO
-        return 0;
+        int res = 0;
+        
+        for(int i = 0; i < this.taille ; i++) //on parcours le byte
+        {
+            boolean bit = this.listeBits.get(i);
+            int bitInteger = bit ? 1 : 0; //si le bit est true alors le int est == 1
+            
+            res += (int) bitInteger * Math.pow(2,i);
+        }
+        return res;
     }
     /**
      * Interprète le MotBinaire comme une succession de caractère encodé chacun sur 8bits (UTF-8)
      * @return une chaine de caractères
      */
     public String asString()  {
-        //TODO
-        return null;
+         String res = "";
+       
+        int tailleChar = 8;
+        for (int i=0; i < tailleChar; i++)
+        {
+            
+        }
+        
+        return res;
     }
     
     //Affichage en binaire (i.e : 6 -> "110")
