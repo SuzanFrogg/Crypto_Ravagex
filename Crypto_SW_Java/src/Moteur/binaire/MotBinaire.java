@@ -127,14 +127,27 @@ public class MotBinaire {
      * Interprète le MotBinaire comme une succession de caractère encodé chacun sur 8bits (UTF-8)
      * @return une chaine de caractères
      */
-    public String asString()  {
-         String res = "";
+    public String asString() {
+        String res = "";
        
+        
         int tailleChar = 8;
-        for (int i=0; i < tailleChar; i++)
+        BitSet shruckBit = new BitSet();
+        int charAsInt = 0;
+        
+        while(this.taille >= 8)
         {
-            
+            for (int i=0; i < tailleChar; i++)
+            {
+               shruckBit.set(i, this.listeBits.get(i)); //on recréer un bit rétréci
+               MotBinaire shruckMotBinaire = new MotBinaire(shruckBit, 8); //qu'on met dans un mot binaire pour utiliser as Integer
+               charAsInt = shruckMotBinaire.asInteger();
+
+               res += (char) charAsInt;
+
+            }
         }
+        
         
         return res;
     }
