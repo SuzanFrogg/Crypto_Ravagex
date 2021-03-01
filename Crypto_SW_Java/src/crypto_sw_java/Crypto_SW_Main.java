@@ -18,19 +18,21 @@ public class Crypto_SW_Main {
     public static void main(String[] args) {
        
         try {
-            Client client = new Client();
-            client.connexion();
-            client.creationFlux();
-            
-            //MDP Communication Phase 2 : ANEWHOPE
-            //MDP Communication Phase 3 : Mvy aol Ltwlyvy (Algo de Cesar +7) : For the Emperor
-            client.boucleDeDiscussion("For the Emperor");
-            
+        Client client = new Client();
+        client.connexion();
+        client.creationFlux();
+        
+        client.boucleDeDiscussion("communication",2);
+        
         } catch (IOException ex) {
-            Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
+        /* MotBinaire bin = new MotBinaire("oui");
+        System.out.println(bin);
+        System.out.println(bin.asString());*/
+        
+        
         
     }
     
