@@ -1,5 +1,6 @@
 package Moteur.binaire;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.BitSet;
 
@@ -128,25 +129,29 @@ public class MotBinaire {
      * @return une chaine de caractères
      */
     public String asString() {
-        String res = "";
-       
-        
-        int tailleChar = 8;
-        BitSet shruckBit = new BitSet();
-        int charAsInt = 0;
-        
-        while(this.taille >= 8)
-        {
-            for (int i=0; i < tailleChar; i++)
+        String res = "";  
+        //Les bits se lisent de droite à gauche donc il faut inverser le tout 
+        //Avant de pouvoir lire 
+        char[] toReverse = new char[this.taille/8];
+        //Pour aller d'Octet en octet
+        for(int i = 0;i<this.taille;i+=8) {
+            //On récupère un bit
+            BitSet Bit = this.listeBits.get(i,i+7);
+            //Les bits sont enregistrés dans le bitset avec le LSB à droite
+            //Il faut donc inversé le bit avant d'en retirer le caractères
+            String oct = "";
+            for(int index = 8;index>0;index--)
             {
-               shruckBit.set(i, this.listeBits.get(i)); //on recréer un bit rétréci
-               MotBinaire shruckMotBinaire = new MotBinaire(shruckBit, 8); //qu'on met dans un mot binaire pour utiliser as Integer
-               charAsInt = shruckMotBinaire.asInteger();
-
-               res += (char) charAsInt;
-
+               //true : 1 || false : 0
+               oct += Bit.get(index) ? 1 : 0 ;
             }
+            //Ajout du caractère
+            toReverse[i/8]=(char)Integer.parseInt(oct,2);
         }
+        //On récupère tout les caractères, dans le bon ordre
+        for(int c = toReverse.length; c>0;c--) {
+                res += toReverse[c-1];
+            }
         
         
         return res;
@@ -213,7 +218,12 @@ public class MotBinaire {
       * @return la liste des morceaux
       */
      public ArrayList<MotBinaire> scinder(int tailleMorceau) {
-        //TODO
+        ArrayList<MotBinaire> res = new ArrayList<MotBinaire>();
+        if(tailleMorceau>=this.taille) {
+            res.add(this);
+            return res;
+        }
+        else
         return null;
     }
      
