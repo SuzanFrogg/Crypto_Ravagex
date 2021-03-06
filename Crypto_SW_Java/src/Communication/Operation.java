@@ -29,23 +29,20 @@ public class Operation extends Client{
 
         //envoie mdp
         messageAEnvoyer = "65446970457584";
-        sendMessage(messageAEnvoyer);
 
         do 
         {
             try 
             {
-                messageRecu = getMessage();
-                MotBinaire mot1 = new MotBinaire(messageRecu);
-                
-                messageRecu = getMessage();
-                MotBinaire mot2 = new MotBinaire(messageRecu);
-                
-                MotBinaire mot3 = mot1.xor(mot2);
-                messageAEnvoyer = mot3.toString();
                 sendMessage(messageAEnvoyer);
-                
-                
+                messageRecu = getMessage();
+                if(!messageRecu.equals("END")) {
+                    MotBinaire mot1 = new MotBinaire(messageRecu);
+                    messageRecu = getMessage();
+                    MotBinaire mot2 = new MotBinaire(messageRecu);
+                    MotBinaire mot3 = mot1.xor(mot2);
+                    messageAEnvoyer = mot3.toString();                
+                }
             } catch (IOException ex) 
             {
                 Logger.getLogger(Operation.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,23 +62,20 @@ public class Operation extends Client{
 
         //envoie mdp 
         messageAEnvoyer = "UAMQLGAV";
-        sendMessage(messageAEnvoyer);
 
         do 
         {
             try 
             {
-                messageRecu = getMessage();
-                MotBinaire mot1 = new MotBinaire(messageRecu);
-                
-                messageRecu = getMessage();
-                MotBinaire mot2 = new MotBinaire(messageRecu);
-                
-                MotBinaire mot3 = mot1.additionMod2p32(mot2);
-                messageAEnvoyer = mot3.toString();
                 sendMessage(messageAEnvoyer);
-                
-                
+                messageRecu = getMessage();           
+                if(!messageRecu.equals("END")) {
+                    MotBinaire mot1 = new MotBinaire(messageRecu);
+                    messageRecu = getMessage();
+                    MotBinaire mot2 = new MotBinaire(messageRecu);
+                    MotBinaire mot3 = mot1.additionMod2p32(mot2);
+                    messageAEnvoyer = mot3.toString();
+                }
             } catch (IOException ex) 
             {
                 Logger.getLogger(Operation.class.getName()).log(Level.SEVERE, null, ex);
