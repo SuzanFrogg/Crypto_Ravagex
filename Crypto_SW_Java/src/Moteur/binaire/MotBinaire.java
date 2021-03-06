@@ -2,6 +2,7 @@ package Moteur.binaire;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 
 /**
@@ -71,7 +72,8 @@ public class MotBinaire {
         
         //On regarde pour la taille
         for(int i=0;i<this.taille;i++) {
-            //On regarde si le code est divisible par 2 : donc si on peut mettre 1 pour le bit actuel
+            //On regarde si le code est divisible par 2 : donc si on peut
+                    //mettre 1 pour le bit actuel
             int binaireInt = (int)(code % 2);
             
             boolean bin = binaireInt == 1;
@@ -118,42 +120,24 @@ public class MotBinaire {
         for(int i = 0; i < this.taille ; i++) //on parcours le byte
         {
             boolean bit = this.listeBits.get(i);
-            int bitInteger = bit ? 1 : 0; //si le bit est true alors le int est == 1
+            //si le bit est true alors le int est == 1
+            int bitInteger = bit ? 1 : 0; 
             
             res += (int) bitInteger * Math.pow(2,i);
         }
         return res;
     }
     /**
-     * Interprète le MotBinaire comme une succession de caractère encodé chacun sur 8bits (UTF-8)
+     * Interprète le MotBinaire comme une succession de 
+     * caractère encodé chacun sur 8bits (UTF-8)
      * @return une chaine de caractères
      */
     public String asString() {
-        String res = "";  
-        //Les bits se lisent de droite à gauche donc il faut inverser le tout 
-        //Avant de pouvoir lire 
-        char[] toReverse = new char[this.taille/8];
-        //Pour aller d'Octet en octet
-        for(int i = 0;i<this.taille;i+=8) {
-            //On récupère un bit
-            BitSet Bit = this.listeBits.get(i,i+7);
-            //Les bits sont enregistrés dans le bitset avec le LSB à droite
-            //Il faut donc inversé le bit avant d'en retirer le caractères
-            String oct = "";
-            for(int index = 8;index>0;index--)
-            {
-               //true : 1 || false : 0
-               oct += Bit.get(index) ? 1 : 0 ;
-            }
-            //Ajout du caractère
-            toReverse[i/8]=(char)Integer.parseInt(oct,2);
-        }
-        //On récupère tout les caractères, dans le bon ordre
-        for(int c = toReverse.length; c>0;c--) {
-                res += toReverse[c-1];
-            }
-        
-        
+        String res = "";
+        //Le mot est utilisé d'octet en octet
+        for(int ite = this.taille-8;ite>=0;ite-=8) {
+            res += (char)Integer.parseInt( new MotBinaire(this.listeBits.get(ite,ite+8),8).toString(),2);
+        }   
         return res;
     }
     
@@ -178,10 +162,8 @@ public class MotBinaire {
      * @return le résultat du xor
      */
     public MotBinaire xor(MotBinaire mot2) {
-        BitSet bits = mot2.getBitSet();
-        bits.xor(bits);
-        MotBinaire mbRes = new MotBinaire(bits,mot2.taille);
-        return mbRes;
+        this.listeBits.xor(mot2.getBitSet());
+        return this;
     }
     
     /**
@@ -218,13 +200,15 @@ public class MotBinaire {
       * @return la liste des morceaux
       */
      public ArrayList<MotBinaire> scinder(int tailleMorceau) {
-        ArrayList<MotBinaire> res = new ArrayList<MotBinaire>();
-        if(tailleMorceau>=this.taille) {
-            res.add(this);
-            return res;
-        }
-        else
-        return null;
+        ArrayList<MotBinaire> res = new ArrayList<>();
+            
+            //Pour chaque partage possible de la tailleMorceau choisie, on créer un nouveau mot
+            for(int i = 0; i<this.taille;i+=tailleMorceau) {
+                MotBinaire Mot  = new MotBinaire(this.listeBits.get(i,i+tailleMorceau),tailleMorceau);
+                res.add(Mot);
+            }
+            
+        return res;
     }
      
      /**
@@ -233,8 +217,7 @@ public class MotBinaire {
       * @return le résultat de la concaténation
       */
      public MotBinaire concatenation(MotBinaire mot) {
-         //TODO
-	return null;
+	return new MotBinaire(this.toString()+mot.toString());
      }
      
 }
