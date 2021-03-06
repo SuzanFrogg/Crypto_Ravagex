@@ -151,8 +151,9 @@ public class MotBinaire {
      * @return le résultat du xor
      */
     public MotBinaire xor(MotBinaire mot2) {
-        this.listeBits.xor(mot2.getBitSet());
-        return this;
+        MotBinaire mot1 = new MotBinaire(this.listeBits,this.taille);
+        mot1.getBitSet().xor(mot2.getBitSet());
+        return mot1;
     }
     
     /**
@@ -162,24 +163,28 @@ public class MotBinaire {
      */
      public MotBinaire additionMod2p32(MotBinaire mot2) {
         int retenue = 0;
-        boolean bool = false;
+        
+        
         BitSet bR = new BitSet();
         BitSet bM1 = this.getBitSet();
         BitSet bM2 = mot2.getBitSet();
          
-        for(int i =0; i < 31; i++){
-            int bM1INT = bM1.get(i) ? 1 : 0;
+        for(int i =0; i < 31; i++)
+        {
+            int bM1INT = bM1.get(i) ? 1 : 0; // 1 si true, 0 si false
             int bM2INT = bM2.get(i) ? 1 : 0;
-            int calc = (retenue + bM1INT + bM2INT) % 2;
-             
-            if(calc == 1){
-                bool = true;
-            }
             
-            bR.set(i, bool);
+            int calc = (retenue + bM1INT + bM2INT) %2;
+             
+            retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
+               
+            boolean res = calc == 1; //si calc == 1  le bit est true
+            
+            bR.set(i, res);
         }
         
-        MotBinaire mbRes = new MotBinaire(bR,mot2.taille);     
+        MotBinaire mbRes = new MotBinaire(bR,32);// sortie des addition de taille 32
+        
         return mbRes;
      }
     

@@ -121,18 +121,22 @@ public class MotBinaireTest {
     /**
      * Test of additionMod2p32 method, of class MotBinaire.
      */
-/*    @Test
+    @Test
     public void testAdditionMod2p32() {
-        System.out.println("additionMod2p32");
-        MotBinaire mot2 = null;
-        MotBinaire instance = new MotBinaire();
-        MotBinaire expResult = null;
-        MotBinaire result = instance.additionMod2p32(mot2);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MotBinaire mot1 = new MotBinaire(5);
+        MotBinaire mot2 = new MotBinaire(36);
+        
+        MotBinaire mot3 = mot1.additionMod2p32(mot2);
+        assertEquals(mot3.asInteger(), 41);
+        
+        
+        MotBinaire mot4 = new MotBinaire(250);
+        
+        MotBinaire mot5 = mot1.additionMod2p32(mot4);
+        assertEquals(mot5.asInteger(), 255);
+
     }
-*/
+
     /**
      * Test of scinder method, of class MotBinaire.
      */

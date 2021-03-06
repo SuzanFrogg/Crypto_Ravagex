@@ -5,6 +5,7 @@
  */
 package Communication;
 
+import Moteur.binaire.MotBinaire;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,22 +19,74 @@ public class Operation extends Client{
     
      /**
      * Conversion phase2
-     *MDP YKOTO!U␣PRT␣S␣RTL␣␣AEM␣␣OEOOO␣HS␣RI␣ avec ANAKIN double transposition => YOU SHOOT LIKE A STORMTROOPER ! 
+     *MDP A,EF-KT => convertis en décimaux => 65446970457584
      */
     @Override
     protected void phase2()
     {
-        
+        String messageRecu = "" ;
+        String messageAEnvoyer = "" ;
+
+        //envoie mdp
+        messageAEnvoyer = "65446970457584";
+        sendMessage(messageAEnvoyer);
+
+        do 
+        {
+            try 
+            {
+                messageRecu = getMessage();
+                MotBinaire mot1 = new MotBinaire(messageRecu);
+                
+                messageRecu = getMessage();
+                MotBinaire mot2 = new MotBinaire(messageRecu);
+                
+                MotBinaire mot3 = mot1.xor(mot2);
+                messageAEnvoyer = mot3.toString();
+                sendMessage(messageAEnvoyer);
+                
+                
+            } catch (IOException ex) 
+            {
+                Logger.getLogger(Operation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } while(!messageRecu.equals("END")) ;
     }
     
     /**
      * Conversion phase 3
-     * MDP 
+     * MDP  51 11 33 42 32 22 11 51 => Carré de Polybe en U/V => UAMQLGAV
      */
     @Override
     protected void phase3()
     {
-        
+        String messageRecu = "" ;
+        String messageAEnvoyer = "" ;
+
+        //envoie mdp 
+        messageAEnvoyer = "UAMQLGAV";
+        sendMessage(messageAEnvoyer);
+
+        do 
+        {
+            try 
+            {
+                messageRecu = getMessage();
+                MotBinaire mot1 = new MotBinaire(messageRecu);
+                
+                messageRecu = getMessage();
+                MotBinaire mot2 = new MotBinaire(messageRecu);
+                
+                MotBinaire mot3 = mot1.additionMod2p32(mot2);
+                messageAEnvoyer = mot3.toString();
+                sendMessage(messageAEnvoyer);
+                
+                
+            } catch (IOException ex) 
+            {
+                Logger.getLogger(Operation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } while(!messageRecu.equals("END")) ;
     }
 
     
