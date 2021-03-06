@@ -1,6 +1,7 @@
 package crypto_sw_java;
 
 import Communication.Client;
+import Communication.Communication;
 import Communication.Conversion;
 import Moteur.binaire.MotBinaire;
 import java.io.IOException;
@@ -22,7 +23,8 @@ public class Crypto_SW_Main {
      */
     public static void main(String[] args) {  
         try {
-        Conversion client = new Conversion();
+            
+        Client client = new Communication();
         client.connexion();
         client.creationFlux();
         
@@ -31,6 +33,15 @@ public class Crypto_SW_Main {
         } catch (IOException ex) {
         Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /*MotBinaire test1 = new MotBinaire(5);
+        MotBinaire test2 = new MotBinaire(52);
+        System.out.println("5 :" + test1.toString());
+        System.out.println("52 :" + test2.toString());
+        
+        MotBinaire test3 = test1.additionMod2p32(test2);
+        System.out.println("57 :" + test3.toString());*/
+        
     }    
       
 }

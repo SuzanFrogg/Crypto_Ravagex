@@ -23,7 +23,13 @@ public class Communication extends Client{
     @Override
     protected void phase2()
     {
-        
+        String messageRecu = "" ;
+        String messageAEnvoyer = "" ;
+
+        //envoie mdp
+        messageAEnvoyer = "ANEWHOPE";
+        sendMessage(messageAEnvoyer);
+
     }
     
     /**
