@@ -130,10 +130,11 @@ public class MotBinaireTest {
         assertEquals(mot3.asInteger(), 41);
         
         
-        MotBinaire mot4 = new MotBinaire(250);
+        MotBinaire mot4 = new MotBinaire(255723774);
+        MotBinaire mot5 = new MotBinaire(1448746371);
         
-        MotBinaire mot5 = mot1.additionMod2p32(mot4);
-        assertEquals(mot5.asInteger(), 255);
+        MotBinaire mot6 = mot4.additionMod2p32(mot5);
+        assertEquals(mot6.asInteger(), 1704470145);
 
     }
 

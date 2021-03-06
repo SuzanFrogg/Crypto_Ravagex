@@ -169,16 +169,17 @@ public class MotBinaire {
         BitSet bM1 = this.getBitSet();
         BitSet bM2 = mot2.getBitSet();
          
-        for(int i =0; i < 31; i++)
+        for(int i =0; i < 32; i++)
         {
             int bM1INT = bM1.get(i) ? 1 : 0; // 1 si true, 0 si false
             int bM2INT = bM2.get(i) ? 1 : 0;
             
-            int calc = (retenue + bM1INT + bM2INT) %2;
+            int calc = (retenue + bM1INT + bM2INT);
              
             retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
                
-            boolean res = calc == 1; //si calc == 1  le bit est true
+            boolean res = calc % 2 == 1; //si calc == 1  le bit est true
+            
             
             bR.set(i, res);
         }

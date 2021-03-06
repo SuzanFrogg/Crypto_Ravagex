@@ -18,7 +18,7 @@ public class Operation extends Client{
       
     
      /**
-     * Conversion phase2
+     * Operation phase2
      *MDP A,EF-KT => convertis en décimaux => 65446970457584
      */
     @Override
@@ -54,7 +54,7 @@ public class Operation extends Client{
     }
     
     /**
-     * Conversion phase 3
+     * Operation phase 3
      * MDP  51 11 33 42 32 22 11 51 => Carré de Polybe en U/V => UAMQLGAV
      */
     @Override
