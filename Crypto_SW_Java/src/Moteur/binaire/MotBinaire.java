@@ -7,6 +7,12 @@ import java.util.BitSet;
 
 /**
  * Représentation d'un mot binaire
+ * @author Manon
+ * @author mathy
+ * @author Thibault
+ * @author Iris
+ * @author Albane
+ * @author Antonia
  */
 public class MotBinaire {
 

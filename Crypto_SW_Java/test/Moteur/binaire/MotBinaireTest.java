@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 /**
  *
  * @author mathy
+ * @author Manon
  */
 public class MotBinaireTest {
     

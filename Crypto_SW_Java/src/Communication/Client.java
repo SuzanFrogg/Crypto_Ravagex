@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 /**
  *
  * @author thibault 
+ * @author Manon
+ * @author mathy
  */
 public abstract class Client {
     private Socket socket;

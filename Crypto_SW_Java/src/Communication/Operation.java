@@ -36,10 +36,15 @@ public class Operation extends Client{
             {
                 sendMessage(messageAEnvoyer);
                 messageRecu = getMessage();
-                if(!messageRecu.equals("END")) {
+                
+                if(!messageRecu.equals("END")) 
+                {
+                    
                     MotBinaire mot1 = new MotBinaire(messageRecu);
+                    
                     messageRecu = getMessage();
                     MotBinaire mot2 = new MotBinaire(messageRecu);
+                    
                     MotBinaire mot3 = mot1.xor(mot2);
                     messageAEnvoyer = mot3.toString();                
                 }
@@ -68,11 +73,15 @@ public class Operation extends Client{
             try 
             {
                 sendMessage(messageAEnvoyer);
-                messageRecu = getMessage();           
-                if(!messageRecu.equals("END")) {
+                messageRecu = getMessage();   
+                
+                if(!messageRecu.equals("END")) 
+                {
                     MotBinaire mot1 = new MotBinaire(messageRecu);
+                    
                     messageRecu = getMessage();
                     MotBinaire mot2 = new MotBinaire(messageRecu);
+                    
                     MotBinaire mot3 = mot1.additionMod2p32(mot2);
                     messageAEnvoyer = mot3.toString();
                 }
