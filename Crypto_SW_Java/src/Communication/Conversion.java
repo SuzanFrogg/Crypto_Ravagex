@@ -5,6 +5,7 @@
  */
 package Communication;
 
+import Moteur.binaire.MotBinaire;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,29 +29,37 @@ public class Conversion extends Client{
         
         //Envoi du MDP
         send = "YOU SHOOT LIKE A STORMTROOPER !";
-        this.sendMessage(send);
         do 
         {
             try {
+                //On envoie le message
+                this.sendMessage(send);
                 //On récupère le message qui est soit un long soit un char
                 receive = getMessage();
                 //On fait la convertion de cette reception
                 try {
+                    //On tente d'abord la conversion de la reception tel un long
+                    /*
                     Long l = Long.parseLong(receive);
-                    send = Long.toBinaryString(l);
+                    MotBinaire mot = new MotBinaire(l);
+                    send = mot.toString();
+                    */
+                    
+                    send = new MotBinaire(Long.parseLong(receive)).toString();
                 }
+                //Si cela n'est pas possible, faire la conversion tel un char
                 catch(NumberFormatException ex) {
-                    //Si ce n'est pas un long, alors faire la conversion d'un char
-                    //Stackoverflow est notre ami
-                    byte[] array = receive.getBytes();
-                    send = Integer.toBinaryString(0x100 + array[0]).substring(1);
+                    /*
+                    char c = receive.charAt(0);
+                    MotBinaire mot = new MotBinaire(receive.charAt(0));
+                    send = mot.toString();
+                    */
+                    
+                    send = new MotBinaire(receive.charAt(0)).toString();
                 }
-                //Envoi du message de réponse
-               
             } catch (IOException ex) {
                 Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.sendMessage(send);
         } while(!receive.equals("END"));
     }
     
@@ -59,9 +68,30 @@ public class Conversion extends Client{
      * MDP DARKVADOR
      */
     @Override
-    protected void phase3()
-    {
-        
+    protected void phase3() {
+        String receive = "", send = "";
+        int nbSeq =0;
+        //Le MDP
+        send = "DARKVADOR";
+        do 
+        {
+            try {
+                //On envoie le message
+                this.sendMessage(send);
+                //On récupère le message 
+                receive = getMessage();
+                
+                if(nbSeq <5) {
+                    nbSeq++;
+                    send = String.valueOf(new MotBinaire(receive).asInteger());
+                } else {
+                    send = new MotBinaire(receive).asString();
+                }
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Communication.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } while(!receive.equals("END"));
     }
 
     
