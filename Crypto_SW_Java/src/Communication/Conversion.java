@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe Conversion permettant la communication avec la partie conversion du jar
  * @author Manon
  * @author mathy 
  */
@@ -20,17 +20,16 @@ public class Conversion extends Client{
     
      /**
      * Conversion phase2
-     *MDP YKOTO!U␣PRT␣S␣RTL␣␣AEM␣␣OEOOO␣HS␣RI␣ avec ANAKIN double transposition => YOU SHOOT LIKE A STORMTROOPER ! 
+     *MDP YKOTO!U␣PRT␣S␣RTL␣␣AEM␣␣OEOOO␣HS␣RI␣ avec ANAKIN 
+     * double transposition => YOU SHOOT LIKE A STORMTROOPER ! 
      */
     @Override
-    protected void phase2()
-    {
+    protected void phase2() {
         String receive = "", send = "";
         
         //Envoi du MDP
         send = "YOU SHOOT LIKE A STORMTROOPER !";
-        do 
-        {
+        do {
             try {
                 //On envoie le message
                 this.sendMessage(send);
@@ -73,17 +72,17 @@ public class Conversion extends Client{
         int nbSeq =0;
         //Le MDP
         send = "DARKVADOR";
-        do 
-        {
+        do {
             try {
                 //On envoie le message
                 this.sendMessage(send);
                 //On récupère le message 
                 receive = getMessage();
-                
+                //Les 5 premiers messages doivent être convertis en Integer
                 if(nbSeq <5) {
                     nbSeq++;
                     send = String.valueOf(new MotBinaire(receive).asInteger());
+                //Les 5 suivants en String
                 } else {
                     send = new MotBinaire(receive).asString();
                 }

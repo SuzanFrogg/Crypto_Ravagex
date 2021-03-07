@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe Permutation permettant la communication avec la partie Permutation du jar
  * @author mathy
  */
 public class Permutation extends Client{
@@ -19,16 +19,16 @@ public class Permutation extends Client{
     @Override
     protected void phase2() {
       String send = "", receive = "";
-        //Le MDP
+        //Envoi du MDP
         send = "10010011001110";
-        do 
-        {
+        do {
             try {
                 //On envoie le message
                 this.sendMessage(send);
                 //On récupère le message 
                 receive = getMessage();
                 MotBinaire mot = new MotBinaire(receive);
+                //Execution de la permutation
                 MotBinaire image = permuterMot8(mot);
                 send = image.toString();
                 
@@ -37,10 +37,17 @@ public class Permutation extends Client{
             }
         } while(!receive.equals("END"));
     }
-
+    
+    
     @Override
     protected void phase3() {/*Cette partie n'a pas de phase n°3*/}
     
+    /**
+     * Fonction permettant la permutation d'un mot binaire sur 8 bit sur un 
+     * schéma fixe
+     * @param initial le mot à permuter
+     * @return le mot permuté
+     */
     public MotBinaire permuterMot8(MotBinaire initial) {
         MotBinaire image = new MotBinaire(initial.getBitSet(),8);
         image.getBitSet().set(0,initial.getBitSet().get(2));

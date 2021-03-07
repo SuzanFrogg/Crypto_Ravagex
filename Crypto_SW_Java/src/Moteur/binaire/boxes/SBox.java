@@ -19,8 +19,12 @@ public class SBox implements IBox {
 
     private ArrayList<Long> tableau = new ArrayList<>();
     
-    public SBox(String adresseFichier) throws IOException 
-    {
+    /**
+     * Constructeur de SBox
+     * @param adresseFichier l'adresse du fichier contenant les combinaisons
+     * @throws IOException 
+     */
+    public SBox(String adresseFichier) throws IOException {
         
         //Recuperer le contenu du fichier
         FileReader fr = null;
@@ -36,8 +40,7 @@ public class SBox implements IBox {
             StringBuilder sb = new StringBuilder();
             
             String ligne = br.readLine();
-            while(ligne  != null)
-            {
+            while(ligne  != null) {
                 // ajoute la ligne au buffer
                 sb.append(ligne); 
                 ligne = br.readLine();
@@ -46,8 +49,7 @@ public class SBox implements IBox {
             //mettre les string dans le tableau
             String sboxString = sb.toString();
 
-            for(String str : sboxString.split(","))
-            {
+            for(String str : sboxString.split(",")) {
                 String s = "";
                 for(int i = 2; i < str.length(); i++) //on enlève "0x"
                 {
@@ -68,11 +70,7 @@ public class SBox implements IBox {
             } catch (IOException ex) {
                 Logger.getLogger(SBox.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        
-        
-        
-       
+        }    
     }
     
     /**
@@ -89,5 +87,4 @@ public class SBox implements IBox {
         
         return res;
     }
-    
 }

@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Classe SBoxCom permettant la communication avec la partie SBox du jar
  * @author Manon
  */
 public class SBoxCom extends Client{
@@ -20,11 +20,10 @@ public class SBoxCom extends Client{
     
      /**
      * SBoxCom phase2
-MDP SBow(5) => 0x7602d4f7 => 1979897079
+     * MDP SBow(5) => 0x7602d4f7 => 1979897079
      */
     @Override
-    protected void phase2()
-    {
+    protected void phase2() {
         String messageRecu = "" ;
         String messageAEnvoyer = "" ;
 
@@ -32,17 +31,15 @@ MDP SBow(5) => 0x7602d4f7 => 1979897079
         messageAEnvoyer = "1979897079";
         sendMessage(messageAEnvoyer);
 
-        do 
-        {
+        do {
             try {
-
                 messageRecu = getMessage();
                 MotBinaire mot1 = new MotBinaire(messageRecu);
                 
                 //récuper le fichier de Sbox
                 String currentFolder = System.getProperty("user.dir");
                 SBox sbox = new SBox(currentFolder + "/src/Data/sbox.txt");
-            
+                
                 MotBinaire mot2 = sbox.appliquer(mot1);
                 messageAEnvoyer = mot2.toString();
                 
@@ -54,15 +51,8 @@ MDP SBow(5) => 0x7602d4f7 => 1979897079
         } while(!messageRecu.equals("END")) ;
     }
     
-    /**
-     * SBoxCom phase 3 //n'existe pas
- MDP 
-     */
     @Override
-    protected void phase3()
-    {
-        
-    }
+    protected void phase3(){/*Cette partie n'a pas de phase n°3*/}
 
     
     

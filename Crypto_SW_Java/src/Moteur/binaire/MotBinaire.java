@@ -19,13 +19,16 @@ public class MotBinaire {
     private BitSet listeBits;                   //Liste des bits
     private int taille;                         //Nombre de bits
     
-    //Constructeurs standard
+    /**
+     * Constructeur standard
+     */
     public MotBinaire() {
         this.listeBits = new BitSet();
         this.taille = 0;
     }
-	
-    //Constructeur par paramètres avec clonage du bitset
+    /**
+     * Constructeur par paramètres avec clonage du bitset
+     */
     public MotBinaire(BitSet listeBits,int taille) {
         this.listeBits = new BitSet();
         this.taille = taille;
@@ -59,7 +62,10 @@ public class MotBinaire {
         this.listeBits = BitSet.valueOf(bits);
     }
     
-    //Constructeur à partir d'un caractère (UTF-8)
+    /**
+     * Constructeur à partir d'un caractère (UTF-8)
+     * @param c un caractère
+     */
     public MotBinaire(char c) {
         this.listeBits = new BitSet();
         this.taille = 8; //UTF8
@@ -78,7 +84,10 @@ public class MotBinaire {
         }
     }
     
-    //Constructeur à partir d'une succession de 1 et de 0 
+    /**
+     * Constructeur à partir d'une succession de 1 et de 0
+     * @param S une suite de 1 et de 0
+     */ 
     public MotBinaire(String S) {
         this();
         this.taille = S.length();
@@ -112,8 +121,8 @@ public class MotBinaire {
     public int asInteger() {
         int res = 0;
         
-        for(int i = 0; i < this.taille ; i++) //on parcours le byte
-        {
+        //on parcours le byte
+        for(int i = 0; i < this.taille ; i++) {
             boolean bit = this.listeBits.get(i);
             //si le bit est true alors le int est == 1
             int bitInteger = bit ? 1 : 0; 
@@ -136,15 +145,17 @@ public class MotBinaire {
         return res;
     }
     
-    //Affichage en binaire (i.e : 6 -> "110")
+    /**
+     * Affichage en binaire (i.e : 6 -> "110")
+     * @return Un string renvoyant sous forme de suite de 1 et de 0 le mot
+     */
     @Override
     public String toString() {
         String res = "";
         for(int i=0;i<this.taille;i++) {
             if(this.listeBits.get(this.taille-i-1)) {
                 res = res+"1";
-            }
-            else {
+            } else {
                 res = res + "0";
             }
         }
@@ -175,8 +186,7 @@ public class MotBinaire {
         BitSet bM1 = this.getBitSet();
         BitSet bM2 = mot2.getBitSet();
          
-        for(int i =0; i < 32; i++)
-        {
+        for(int i =0; i < 32; i++) {
             int bM1INT = bM1.get(i) ? 1 : 0; // 1 si true, 0 si false
             int bM2INT = bM2.get(i) ? 1 : 0;
             
