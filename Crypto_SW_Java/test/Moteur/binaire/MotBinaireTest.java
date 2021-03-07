@@ -174,6 +174,7 @@ public class MotBinaireTest {
         MotBinaire expResult = new MotBinaire("0100000110100010");
         MotBinaire result = motA.concatenation(motE);
         assertEquals(expResult.toString(), result.toString());
+        assertEquals(expResult.getTaille(), result.getTaille());
     }
 
 }
