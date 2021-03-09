@@ -48,6 +48,7 @@ public abstract class Challenge
         do {
             keepGoing = this.communicate();
         } while(keepGoing);
+        this.setMsgReceive(this.client.receiveMessage());
     }
     
     /**
