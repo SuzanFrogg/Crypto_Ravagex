@@ -20,26 +20,41 @@ public abstract class Challenge
     private String msgReceive;
     private String msgSend;
     
-
     /**
-     * constructeur
+     * Constructeur
      * @param client 
      */
     public Challenge() 
     {
         try {
             this.client = new Client();
-            System.out.println("-- Debut com --");
-            communicate();
-        } catch (IOException ex) {
-            Logger.getLogger(Challenge.class.getName()).log(Level.SEVERE, null, ex);
+            this.msgReceive = "";
+            this.msgSend = "";
+                    
+            System.out.println("-- Debut transmission --");
+            boucleCommunication();
+            this.client.end();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ConnexionServeur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     /**
-     * méthode abstraite de comunication
+     * Boucle de communication
      */
-    public abstract void communicate();
+    public void boucleCommunication() throws IOException {
+        boolean keepGoing = true;
+        do {
+            keepGoing = this.communicate();
+        } while(keepGoing);
+    }
+    
+    /**
+     * Méthode abstraite de communication
+     * @return true si la communication doit continuer
+     */
+    public abstract boolean communicate() throws IOException;
     
 
     /**

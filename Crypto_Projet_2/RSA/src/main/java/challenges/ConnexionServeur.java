@@ -11,48 +11,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Manon
+ * Communication de la connexion
+ * @author Manon, Thibault
  */
 public class ConnexionServeur extends Challenge{
-
-
     @Override
-    public void communicate() {
+    public boolean communicate() throws IOException {
+        //Premier message qui correspond à l'état de la réponse
+        setMsgReceive(getClient().receiveMessage());
+        if (getMsgReceive().equals("NOK")) return false;
         
-        do {
-            try {
-                
-                setMsgReceive(getClient().receiveMessage());
-                setMsgReceive(getClient().receiveMessage());
-                
-                
-                
-                if(!"Defi valide".equals(getMsgReceive()))
-                {
-                    
-                        
-                    int chiffre = Integer.parseInt(getMsgReceive()) + 1;
-                    String msg = "" + chiffre;
-                    setMsgSend(msg);
-                    getClient().sendMessage(getMsgSend());
-                }
-               
-                
+        //Deuxième message avec l'information
+        setMsgReceive(getClient().receiveMessage());
 
-                
-                
-            } catch (IOException ex) {
-                Logger.getLogger(ConnexionServeur.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } while(!getMsgReceive().equals("FIN"));
-        
-        try {
-            getClient().end();
-        } catch (IOException ex) {
-            Logger.getLogger(ConnexionServeur.class.getName()).log(Level.SEVERE, null, ex);
+        //On vérifie si le défi est terminé
+        boolean keepGoing = !getMsgReceive().equals("Defi valide") && !getMsgReceive().equals("Defi echoue!");
+        if (keepGoing) {
+            int chiffre = Integer.parseInt(getMsgReceive()) + 1;
+            String msg = "" + chiffre;
+            setMsgSend(msg);
+            getClient().sendMessage(getMsgSend());
         }
+        return keepGoing;
     }
-    
 }
