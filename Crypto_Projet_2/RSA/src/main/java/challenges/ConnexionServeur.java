@@ -23,15 +23,16 @@ public class ConnexionServeur extends Challenge{
         
         //Deuxième message avec l'information
         setMsgReceive(getClient().receiveMessage());
+        if (getMsgReceive().equals("Defi valide") || getMsgReceive().equals("Defi echoue!")) return false;
 
-        //On vérifie si le défi est terminé
-        boolean keepGoing = !getMsgReceive().equals("Defi valide") && !getMsgReceive().equals("Defi echoue!");
-        if (keepGoing) {
-            int chiffre = Integer.parseInt(getMsgReceive()) + 1;
-            String msg = "" + chiffre;
-            setMsgSend(msg);
-            getClient().sendMessage(getMsgSend());
-        }
-        return keepGoing;
+        
+        //Après qu'on est vérifié que tout se passe bien et qu'on peut continuer
+        //On éxécute la logique
+        int chiffre = Integer.parseInt(getMsgReceive()) + 1;
+        String msg = "" + chiffre;
+        setMsgSend(msg);
+        getClient().sendMessage(getMsgSend());
+        
+        return true;
     }
 }
