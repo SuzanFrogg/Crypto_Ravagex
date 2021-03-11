@@ -30,10 +30,10 @@ public class Crypto_SW_Main {
         
         try {
 
-        Client client = new Decryptage();
-        //this.connexion();
-        //this.creationFlux();
-        client.boucleDeDiscussion(3);
+        Client client = new Decryptage(); //a changer en fonction de chaque partie
+        client.connexion();
+        client.creationFlux();
+        client.boucleDeDiscussion(2); //a changer en fonction de chaque partie (2 ou 3)
 
         } catch (IOException ex) {
         Logger.getLogger(Crypto_SW_Main.class.getName()).log(Level.SEVERE, null, ex);
