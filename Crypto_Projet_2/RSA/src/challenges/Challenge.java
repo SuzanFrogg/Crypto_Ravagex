@@ -56,28 +56,36 @@ public abstract class Challenge implements Protocole
      */
     public abstract String communicate() throws IOException;
     
+    /**
+     * Fonction executer permettant de tester le challenge
+     * @throws ExceptionCryptographie 
+     */
         @Override
     public void executer() throws ExceptionCryptographie {
         boolean keepGoing = true; 
         try {
             do {
+                //Première reception contenant le nom du défi
+                //Puis Reception du message validant ou non le calcul envoyé
                 this.setMsgReceive(this.client.receiveMessage());
+                //Si le calcul n'est pas validé, on sort de la boucle
                 if(this.getMsgReceive().startsWith("NOK")) {
                     keepGoing = false;
                     continue;
                 }
-                
+                //Pour certain challenge envoyant deux paramètre de calcul
+                //La condition est passé sans soucis
+                //Ou Reception du message de fin de défi
                 this.setMsgReceive(this.client.receiveMessage());
+                //Si le défi est terminé, qu'il soit réussi ou non, il faut sortir de la boucle
                 if(this.getMsgReceive().startsWith("Defi valide") || this.getMsgReceive().startsWith("Defi echoue!") ) {
                     keepGoing = false;
                     continue;
                 }    
+                //Pour chaque challenge, envoyer le résultat du calcul effectué
                 this.setMsgSend(this.communicate());
                 this.client.sendMessage(this.getMsgSend());
-            } while(keepGoing);
-            
-            this.setMsgReceive(this.client.receiveMessage());
-            
+            } while(keepGoing);            
         } catch (IOException ex) {
             Logger.getLogger(Challenge.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -9,24 +9,16 @@ import java.io.IOException;
 
 /**
  * Communication de la connexion
- * @author Manon, Thibault
+ * @author Manon, Thibault, Mathys
  */
 public class ConnexionServeur extends Challenge{
+    /**
+     * Pour valider la connexion, il faut renvoyer le nombre reçu plus 1
+     * @return Integer reçu + 1
+     * @throws IOException 
+     */
     @Override
     public String communicate() throws IOException {
-    /*    //Premier message qui correspond à l'état de la réponse
-        setMsgReceive(getClient().receiveMessage());
-        if (getMsgReceive().equals("NOK")) return false;
-        
-        //Deuxième message avec l'information
-        setMsgReceive(getClient().receiveMessage());
-        if (getMsgReceive().equals("Defi valide") || getMsgReceive().equals("Defi echoue!")) return false;
-
-    */    
-        //Après qu'on est vérifié que tout se passe bien et qu'on peut continuer
-        //On éxécute la logique
-        int chiffre = Integer.parseInt(getMsgReceive()) + 1;
-        return "" + chiffre;
-
+        return "" + Integer.parseInt(getMsgReceive()) + 1;
     }
 }
