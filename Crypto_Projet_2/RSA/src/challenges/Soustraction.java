@@ -21,7 +21,16 @@ public class Soustraction extends Challenge {
     @Override
         
         public String communicate() throws IOException {
-        return  "";
+        
+        MotBinaire mot1 = new MotBinaire(getMsgReceive());
+        setMsgReceive(getClient().receiveMessage());
+        MotBinaire mot2 = new MotBinaire(getMsgReceive());
+
+        MotBinaire mot3 = mot1.soustracionMod2p32(mot2);
+        
+        String res =  mot3.toString();
+        
+        return res;
     }
     
 }
