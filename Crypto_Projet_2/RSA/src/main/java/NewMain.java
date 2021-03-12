@@ -1,7 +1,9 @@
 
+import challenges.Addition;
 import challenges.Challenge;
 import challenges.ConnexionServeur;
 import challenges.EstEgal;
+import challenges.EstInferieur;
 import exceptions.ExceptionCryptographie;
 import protocoles.Protocole;
 import protocoles.*;
@@ -22,7 +24,7 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new EstEgal();
+        Challenge challenge = new Addition();
     }
     
 }
