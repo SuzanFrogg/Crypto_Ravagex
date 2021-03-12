@@ -6,15 +6,17 @@
 package challenges;
 
 import coucheReseau.client.Client;
+import exceptions.ExceptionCryptographie;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import protocoles.Protocole;
 
 /**
  *
  * @author Manon
  */
-public abstract class Challenge 
+public abstract class Challenge implements Protocole
 {
     private Client client;
     private String msgReceive;
@@ -32,7 +34,7 @@ public abstract class Challenge
             this.msgSend = "";
                     
             System.out.println("-- Debut transmission --");
-            boucleCommunication();
+            executer();
             this.client.end();
             
         } catch (Exception ex) {
@@ -45,17 +47,42 @@ public abstract class Challenge
      */
     public void boucleCommunication() throws IOException {
         boolean keepGoing = true;
-        do {
-            keepGoing = this.communicate();
-        } while(keepGoing);
-        this.setMsgReceive(this.client.receiveMessage());
+        
     }
     
     /**
      * Méthode abstraite de communication
      * @return true si la communication doit continuer
      */
-    public abstract boolean communicate() throws IOException;
+    public abstract String communicate() throws IOException;
+    
+        @Override
+    public void executer() throws ExceptionCryptographie {
+        boolean keepGoing = true; 
+        try {
+            do {
+                this.setMsgReceive(this.client.receiveMessage());
+                if(this.getMsgReceive().startsWith("NOK")) {
+                    keepGoing = false;
+                    continue;
+                }
+                
+                this.setMsgReceive(this.client.receiveMessage());
+                if(this.getMsgReceive().startsWith("Defi valide") || this.getMsgReceive().startsWith("Defi echoue!") ) {
+                    keepGoing = false;
+                    continue;
+                }    
+                this.setMsgSend(this.communicate());
+                this.client.sendMessage(this.getMsgSend());
+            } while(keepGoing);
+            
+            this.setMsgReceive(this.client.receiveMessage());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Challenge.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
 
     /**
@@ -97,6 +124,8 @@ public abstract class Challenge
     protected void setMsgSend(String msgSend) {
         this.msgSend = msgSend;
     }
+
+
     
     
     

@@ -5,10 +5,7 @@
  */
 package challenges;
 
-import coucheReseau.client.Client;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Communication de la connexion
@@ -16,8 +13,8 @@ import java.util.logging.Logger;
  */
 public class ConnexionServeur extends Challenge{
     @Override
-    public boolean communicate() throws IOException {
-        //Premier message qui correspond à l'état de la réponse
+    public String communicate() throws IOException {
+    /*    //Premier message qui correspond à l'état de la réponse
         setMsgReceive(getClient().receiveMessage());
         if (getMsgReceive().equals("NOK")) return false;
         
@@ -25,14 +22,11 @@ public class ConnexionServeur extends Challenge{
         setMsgReceive(getClient().receiveMessage());
         if (getMsgReceive().equals("Defi valide") || getMsgReceive().equals("Defi echoue!")) return false;
 
-        
+    */    
         //Après qu'on est vérifié que tout se passe bien et qu'on peut continuer
         //On éxécute la logique
         int chiffre = Integer.parseInt(getMsgReceive()) + 1;
-        String msg = "" + chiffre;
-        setMsgSend(msg);
-        getClient().sendMessage(getMsgSend());
-        
-        return true;
+        return "" + chiffre;
+
     }
 }
