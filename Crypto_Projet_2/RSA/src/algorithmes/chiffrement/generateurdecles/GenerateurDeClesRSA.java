@@ -1,4 +1,4 @@
-package algorithmes.generateurdecles;
+package algorithmes.chiffrement.generateurdecles;
 
 import algorithmes.chiffrement.RSA.ParametresRSA;
 import algorithmes.chiffrement.RSA.RabinMiller;
