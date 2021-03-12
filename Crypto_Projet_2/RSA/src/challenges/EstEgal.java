@@ -15,10 +15,8 @@ import java.io.IOException;
  */
 public class EstEgal extends Challenge {
     
-    private Client client;
     
     public EstEgal() {
-        this.client = this.getClient();
     }
     @Override
         
@@ -26,7 +24,7 @@ public class EstEgal extends Challenge {
         String res = "false";
         
         MotBinaire mot1 = new MotBinaire(getMsgReceive());
-        setMsgReceive(client.receiveMessage());
+        setMsgReceive(getClient().receiveMessage());
         MotBinaire mot2 = new MotBinaire(getMsgReceive());
         
         int nb1 = mot1.asInteger();
