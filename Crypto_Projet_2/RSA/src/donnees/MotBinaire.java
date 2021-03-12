@@ -29,17 +29,40 @@ public class MotBinaire {
 	
     //Constructeur à partir d'un long
     public MotBinaire(long valeur) {
-        //TODO
+        this.taille = 32;   
+        long[] longs = new long[1];
+        longs[0] = valeur;
+        this.listeBits = BitSet.valueOf(longs);
     }
     
     //Constructeur à partir d'un byte
     public MotBinaire(byte b) {
-        //TODO
+        this.taille = 8;
+        this.listeBits = new BitSet();
+        //Création d'un array byte avec le byte à l'intérieur
+        byte bits[] = new byte[1];
+        bits[0] = b;
+        //Changement de la listeBits avec la value de bits
+        this.listeBits = BitSet.valueOf(bits);
     }
     
     //Constructeur à partir d'un caractère (UTF-8)
     public MotBinaire(char c) {
-        //TODO
+        this.listeBits = new BitSet();
+        this.taille = 8; //UTF8
+        int code = (int)c;
+        
+        //On regarde pour la taille
+        for(int i=0;i<this.taille;i++) {
+            //On regarde si le code est divisible par 2 : donc si on peut
+                    //mettre 1 pour le bit actuel
+            int binaireInt = (int)(code % 2);
+            
+            boolean bin = binaireInt == 1;
+            this.listeBits.set(i, bin);
+            
+            code /= 2;
+        }
     }
     
     //Constructeur à partir d'une succession de 1 et de 0 
@@ -74,16 +97,29 @@ public class MotBinaire {
      * @return un entier
      */
     public int asInteger() {
-        //TODO
-        return 0;
+        int res = 0;
+        
+        //on parcours le byte
+        for(int i = 0; i < this.taille ; i++) {
+            boolean bit = this.listeBits.get(i);
+            //si le bit est true alors le int est == 1
+            int bitInteger = bit ? 1 : 0; 
+            
+            res += (int) bitInteger * Math.pow(2,i);
+        }
+        return res;
     }
     /**
      * Interprète le MotBinaire comme une succession de caractère encodé chacun sur 8bits (UTF-8)
      * @return une chaine de caractères
      */
     public String asString()  {
-        //TODO
-        return null;
+        String res = "";
+        //Le mot est utilisé d'octet en octet
+        for(int ite = this.taille-8;ite>=0;ite-=8) {
+            res += (char)Integer.parseInt( new MotBinaire(this.listeBits.get(ite,ite+8),8).toString(),2);
+        }   
+        return res;
     }
     
     //Affichage en binaire (i.e : 6 -> "110")
@@ -107,8 +143,9 @@ public class MotBinaire {
      * @return le résultat du xor
      */
     public MotBinaire xor(MotBinaire mot2) {
-        //TODO
-        return null;
+        MotBinaire mot1 = new MotBinaire(this.listeBits,this.taille);
+        mot1.getBitSet().xor(mot2.getBitSet());
+        return mot1;
     }
     
     /**
@@ -117,8 +154,30 @@ public class MotBinaire {
      * @return le résultat de l'addition
      */
      public MotBinaire additionMod2p32(MotBinaire mot2) {
-         //TODO
-         return null;
+         int retenue = 0;
+        
+        
+        BitSet bR = new BitSet();
+        BitSet bM1 = this.getBitSet();
+        BitSet bM2 = mot2.getBitSet();
+         
+        for(int i =0; i < 32; i++) {
+            int bM1INT = bM1.get(i) ? 1 : 0; // 1 si true, 0 si false
+            int bM2INT = bM2.get(i) ? 1 : 0;
+            
+            int calc = (retenue + bM1INT + bM2INT);
+             
+            retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
+               
+            boolean res = calc % 2 == 1; //si calc == 1  le bit est true
+            
+            
+            bR.set(i, res);
+        }
+        
+        MotBinaire mbRes = new MotBinaire(bR,32);// sortie des addition de taille 32
+        
+        return mbRes;
      }
     
      /**
@@ -127,8 +186,15 @@ public class MotBinaire {
       * @return la liste des morceaux
       */
      public ArrayList<MotBinaire> scinder(int tailleMorceau) {
-        //TODO
-        return null;
+        ArrayList<MotBinaire> res = new ArrayList<>();
+            
+            //Pour chaque partage possible de la tailleMorceau choisie, on créer un nouveau mot
+            for(int i = 0; i<this.taille;i+=tailleMorceau) {
+                MotBinaire Mot  = new MotBinaire(this.listeBits.get(i,i+tailleMorceau),tailleMorceau);
+                res.add(Mot);
+            }
+            
+        return res;
     }
      
      /**
@@ -137,8 +203,7 @@ public class MotBinaire {
       * @return le résultat de la concaténation
       */
      public MotBinaire concatenation(MotBinaire mot) {
-         //TODO
-	return null;
+        return new MotBinaire(this.toString()+mot.toString());
      }
      
 }
