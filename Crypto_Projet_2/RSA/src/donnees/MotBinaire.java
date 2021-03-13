@@ -154,7 +154,7 @@ public class MotBinaire {
      * @return le résultat de l'addition
      */
      public MotBinaire additionMod2p32(MotBinaire mot2) {
-         int retenue = 0;
+        int retenue = 0;
         
         
         BitSet bR = new BitSet();
@@ -179,40 +179,7 @@ public class MotBinaire {
         
         return mbRes;
      }
-     
-     
-     /**
-     * Renvoie le résultat de this   - mot2 [2^32]
-     * @param mot2 2nd mot binaire
-     * @return le résultat de l'addition
-     */
-     public MotBinaire soustracionMod2p32(MotBinaire mot2) {
-         int retenue = 0;
-        
-        
-        BitSet bR = new BitSet();
-        BitSet bM1 = this.getBitSet();
-        BitSet bM2 = mot2.getBitSet();
-         
-        for(int i =0; i < 32; i++) {
-            int bM1INT = bM1.get(i) ? 1 : 0; // 1 si true, 0 si false
-            int bM2INT = bM2.get(i) ? 1 : 0;
-            
-            int calc = (retenue - bM1INT - bM2INT);
-             
-            retenue = calc < 0 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
-               
-            boolean res = calc % 2 == 1; //si calc == 1  le bit est true
-            
-            
-            bR.set(i, res);
-        }
-        
-        MotBinaire mbRes = new MotBinaire(bR,32);// sortie des addition de taille 32
-        
-        return mbRes;
-     }
-    
+       
      /**
       * Scinde le mot binaire en une liste de mot binaire de taille donnée. 
       * @param tailleMorceau taille des morceaux
@@ -221,11 +188,11 @@ public class MotBinaire {
      public ArrayList<MotBinaire> scinder(int tailleMorceau) {
         ArrayList<MotBinaire> res = new ArrayList<>();
             
-            //Pour chaque partage possible de la tailleMorceau choisie, on créer un nouveau mot
-            for(int i = 0; i<this.taille;i+=tailleMorceau) {
-                MotBinaire Mot  = new MotBinaire(this.listeBits.get(i,i+tailleMorceau),tailleMorceau);
-                res.add(Mot);
-            }
+        //Pour chaque partage possible de la tailleMorceau choisie, on créer un nouveau mot
+        for(int i = 0; i<this.taille;i+=tailleMorceau) {
+            MotBinaire Mot  = new MotBinaire(this.listeBits.get(i,i+tailleMorceau),tailleMorceau);
+            res.add(Mot);
+        }
             
         return res;
     }

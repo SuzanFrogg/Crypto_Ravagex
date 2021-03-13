@@ -5,36 +5,29 @@
  */
 package challenges;
 
-import coucheReseau.client.Client;
-import donnees.MotBinaire;
+import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
- * Classe permettant la validation du challenge n°7 : Est Pair
- * @author mathy
+ * Classe permettant la validation du challenge n°6 : Est Egal
+ * @author Manon
  */
 public class EstEgal extends Challenge {
-    
-    
-    public EstEgal() {
-    }
+
+    /**
+     * Pour valider le challenge EstEgal, il faut vérifier l'égalité entre
+     * deux nombres binaires donnés
+     * @return "true" s'ils sont égaux, "false" sinon
+     * @throws IOException 
+     */
     @Override
-        
-        public String communicate() throws IOException {
-        String res = "false";
-        
-        MotBinaire mot1 = new MotBinaire(getMsgReceive());
+    public String communicate() throws IOException {
+        //Récupérer les deux nombres binaires
+        NombreBinaire nb1 = new NombreBinaire(getMsgReceive());
         setMsgReceive(getClient().receiveMessage());
-        MotBinaire mot2 = new MotBinaire(getMsgReceive());
-        
-        int nb1 = mot1.asInteger();
-        int nb2 = mot2.asInteger();
-        
-        if (nb1 == nb2)
-        {
-            res = "true";
-        }
-        return res;
+        NombreBinaire nb2 = new NombreBinaire(getMsgReceive());
+
+        //Retourner "true" si il y a égalité.
+        return (nb1.estEgal(nb2))? "true" : "false";
     }
-    
 }

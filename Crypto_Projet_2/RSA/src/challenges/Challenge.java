@@ -23,8 +23,7 @@ public abstract class Challenge implements Protocole
     private String msgSend;
     
     /**
-     * Constructeur
-     * @param client 
+     * Constructeur 
      */
     public Challenge() 
     {
@@ -37,13 +36,14 @@ public abstract class Challenge implements Protocole
             executer();
             this.client.end();
             
-        } catch (Exception ex) {
+        } catch (ExceptionCryptographie | IOException ex) {
             Logger.getLogger(ConnexionServeur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     /**
      * Boucle de communication
+     * @throws java.io.IOException
      */
     public void boucleCommunication() throws IOException {
         boolean keepGoing = true;
@@ -53,6 +53,7 @@ public abstract class Challenge implements Protocole
     /**
      * Méthode abstraite de communication
      * @return true si la communication doit continuer
+     * @throws java.io.IOException
      */
     public abstract String communicate() throws IOException;
     
@@ -61,7 +62,7 @@ public abstract class Challenge implements Protocole
      * @throws ExceptionCryptographie 
      */
         @Override
-    public void executer() throws ExceptionCryptographie {
+    public final void executer() throws ExceptionCryptographie {
         boolean keepGoing = true; 
         try {
             do {

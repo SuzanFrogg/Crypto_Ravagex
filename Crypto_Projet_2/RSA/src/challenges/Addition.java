@@ -5,32 +5,31 @@
  */
 package challenges;
 
-import coucheReseau.client.Client;
-import donnees.MotBinaire;
+import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
- * Classe permettant la validation du challenge n°7 : Est Pair
- * @author mathy
+ * Classe permettant la validation du challenge n°2 : Addition
+ * @author Manon
  */
 public class Addition extends Challenge {
-    
-    
-    public Addition() {
-    }
-    @Override
-        
-        public String communicate() throws IOException {
-        
-        MotBinaire mot1 = new MotBinaire(getMsgReceive());
-        setMsgReceive(getClient().receiveMessage());
-        MotBinaire mot2 = new MotBinaire(getMsgReceive());
 
-        MotBinaire mot3 = mot1.additionMod2p32(mot2);
-        
-        String res =  mot3.toString();
-        
-        return res;
+    /**
+     * Pour valider le challenge Addition, il faut valider l'addition de 
+     * deux nombres binaires
+     * @return le résultat de l'addition 
+     * @throws IOException 
+     */
+    @Override        
+    public String communicate() throws IOException {
+
+        //Récupération des deux nombres
+        NombreBinaire nb1 = new NombreBinaire(getMsgReceive());
+        setMsgReceive(getClient().receiveMessage());
+        NombreBinaire nb2 = new NombreBinaire(getMsgReceive());
+        //Addition
+        return nb1.addition(nb2).toString();
+                  
     }
     
 }

@@ -5,24 +5,23 @@
  */
 package challenges;
 
-import coucheReseau.client.Client;
+import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°7 : Est Pair
  * @author mathy
  */
-public class EstPair extends Challenge {
-    
-    private Client client;
-    
-    public EstPair() {
-        this.client = this.getClient();
-    }
+public class EstPair extends Challenge {  
+
+    /**
+     * Pour valider le challenge EstPair, il faut vérifier si le nombre reçu est pair ou non
+     * @return "true" si le dernier digit est pair, "false" Sinon
+     * @throws IOException 
+     */
     @Override
     public String communicate() throws IOException {
-        
-        return "";
+        return new NombreBinaire(getMsgReceive()).estPair()? "true":"false";
     }
     
 }

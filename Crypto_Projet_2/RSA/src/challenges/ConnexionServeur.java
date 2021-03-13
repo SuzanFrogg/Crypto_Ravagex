@@ -8,8 +8,10 @@ package challenges;
 import java.io.IOException;
 
 /**
- * Communication de la connexion
- * @author Manon, Thibault, Mathys
+ * Communication de la connexion, challenge n°1
+ * @author Manon
+ * @author Thibault
+ * @author Mathys
  */
 public class ConnexionServeur extends Challenge{
     /**
@@ -19,6 +21,6 @@ public class ConnexionServeur extends Challenge{
      */
     @Override
     public String communicate() throws IOException {
-        return "" + Integer.parseInt(getMsgReceive()) + 1;
+        return String.valueOf(Integer.parseInt(getMsgReceive())+1);
     }
 }

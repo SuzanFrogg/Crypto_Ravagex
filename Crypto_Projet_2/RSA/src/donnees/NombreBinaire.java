@@ -2,6 +2,9 @@ package donnees;
 
 import exceptions.ExceptionConversionImpossible;
 import java.util.BitSet;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Description de la classe
@@ -13,8 +16,15 @@ public class NombreBinaire {
     
     //Génère un nombre binaire aléatoire de "taille" bits au maximum.
     public static NombreBinaire randomAvecTailleMax(int taille) {
-       //TODO
-       return null;
+        //Il y a une probabilité d'obtenir comme taille 0, il faut le prendre en compte
+        String res = (taille==0)? "":"1";
+        Random rand = new Random();
+
+        for(int i =0;i<taille-(int)(Math.random()*taille)-1;i++) {
+            res += String.valueOf(rand.nextInt(2));
+        }
+        
+        return new NombreBinaire(res);
     }
     
     
@@ -134,16 +144,69 @@ public class NombreBinaire {
         return res;
     }
      
-     //Renvoie le résultat de l'addition de this avec mot2
+    /**
+     * @author Manon
+     * Renvoie le résultat de l'addition de this avec mot2
+     * @param mot2 un second NombreBinaire
+     * @return l'addition des deux nombres Binaires sous la forme d'un nombre Binaire
+     * @throws ExceptionConversionImpossible 
+     */
      public NombreBinaire addition(NombreBinaire mot2) {
-       //TODO
-       return null;
+             int retenue = 0;
+             NombreBinaire B1 = new NombreBinaire(this);
+             NombreBinaire B2 = new NombreBinaire(mot2);
+             BitSet bitSet = new BitSet();
+             try {
+                 int max = (B1.asInteger()>B2.asInteger())? B1.asInteger() : B2.asInteger();
+                 for(int i=0;i<max;i++){
+                     int intB1 = B1.get(i) ? 1 : 0; // 1 si true, 0 si false
+                     int intB2 = B2.get(i) ? 1 : 0;
+                     int calc = (retenue + intB1 + intB2);
+
+                     retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
+
+                     boolean res = calc % 2 == 1; //si calc == 1  le bit est true
+
+                     bitSet.set(i, res);
+               }               
+            } catch (ExceptionConversionImpossible ex) {
+               Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
+             return new NombreBinaire(bitSet);
      }
      
      //renvoie le resultat de l'addition de this avec mot3
      public NombreBinaire soustraction(NombreBinaire mot2) {
-       //TODO
-       return null;
+      /**
+     * Renvoie le résultat de this   - mot2 [2^32]
+     * @param mot2 2nd mot binaire
+     * @return le résultat de l'addition
+     */
+        int retenue = 0;        
+        BitSet bR = new BitSet();
+        BitSet bitSet1 = this.listeBits;
+        BitSet bitSet2 = mot2.asBitSet();
+         
+        for(int i =0; i < this.getTaille(); i++) {
+            int nb1 = bitSet1.get(i) ? 1 : 0; // 1 si true, 0 si false
+            int nb2 = bitSet2.get(i) ? 1 : 0;
+            
+            int calc = (retenue - nb1 - nb2);
+             
+            retenue = calc < 0 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
+               
+            //boolean res = calc % 2 == 1; //si calc == 1  le bit est true
+            
+            
+            bR.set(i, Math.abs(calc) % 2 == 1);
+        }
+        
+        NombreBinaire mot3 = new NombreBinaire(bR);
+        
+        return mot3;
+        
+
      }
      
      //Caclule le décalage de n bits (multiplie par 2^n)
@@ -158,10 +221,23 @@ public class NombreBinaire {
        return null;
      }
      
-     //Renvoie si this est plus petit ou égal à mot2
+     //
+     /**
+      * @author Manon
+      * Renvoie si this est plus petit ou égal à mot2
+      * @param mot2
+      * @return 
+      */
      public boolean estInferieurA(NombreBinaire mot2) {
-       //TODO
-       return false;
+         boolean res = false;
+        try {
+            //Vérification de mot1 inférieur à mot2
+            res = (this.asInteger()<=mot2.asInteger())? true : false;
+        } catch (ExceptionConversionImpossible ex) {
+            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
      }
      
      //Calcul this modulo mot2 via une division euclidienne
@@ -181,16 +257,36 @@ public class NombreBinaire {
        //TODO
        return null;
      }
-     
-     public boolean estEgal(NombreBinaire mot2) {
-       //TODO
-       return false;
+     /**
+      * @author Mathys
+      * @param mot2
+      * @return
+      * @throws ExceptionConversionImpossible 
+      */
+     public boolean estEgal(NombreBinaire mot2){
+        boolean res = false;
+        try {
+            //Retourner "true" si il y a égalité.
+             res = (this.asInteger()==mot2.asInteger())? true : false;
+        } catch (ExceptionConversionImpossible ex) {
+            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
      }
      
      //Renvoie si un nombre est pair
      public boolean estPair() {
-       //TODO
-       return false;
+        boolean res = false;
+
+        //Si le nombre binaire est très grand, le calcul plantera donc
+            //on n'effectue le calcul que sur le dernier digit
+        int lastDigit = this.get(0)? 1:0;
+        //lastDigit est à false si le dernier bit est un 0, true sinon
+        //Donc le calcul de lastDigit % 2 == 0 
+        res = (lastDigit % 2 == 0)? true : false;       
+         System.out.println("lastDigit : "+lastDigit+" res : "+res);
+        
+        return res;
      }
      
      

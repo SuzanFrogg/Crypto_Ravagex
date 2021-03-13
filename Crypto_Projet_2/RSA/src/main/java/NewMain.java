@@ -1,12 +1,9 @@
+package main.java;
 
-import challenges.Addition;
+
 import challenges.Challenge;
-import challenges.ConnexionServeur;
-import challenges.EstEgal;
-import challenges.EstInferieur;
+import challenges.RandomAvecBornes;
 import exceptions.ExceptionCryptographie;
-import protocoles.Protocole;
-import protocoles.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,9 +19,10 @@ public class NewMain {
 
     /**
      * @param args the command line arguments
+     * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new Addition();
+        Challenge challenge = new RandomAvecBornes();
     }
     
 }

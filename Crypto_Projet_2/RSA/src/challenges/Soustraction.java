@@ -5,32 +5,32 @@
  */
 package challenges;
 
-import coucheReseau.client.Client;
-import donnees.MotBinaire;
+import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
- * Classe permettant la validation du challenge n°7 : Est Pair
+ * Classe permettant la validation du challenge n°4 : Soustraction
+ * @author Manon
  * @author mathy
  */
 public class Soustraction extends Challenge {
     
-    
-    public Soustraction() {
-    }
-    @Override
-        
-        public String communicate() throws IOException {
-        
-        MotBinaire mot1 = new MotBinaire(getMsgReceive());
+    /**
+     * Pour valider le challenge Soustraction, il faut renvoyer la soustraction
+     * du nombre binaire 1 et le nombre binaire 2
+     * @return la différence entre les deux nombres binaires
+     * @throws IOException 
+     */
+    @Override  
+    public String communicate() throws IOException {
+        //Récupération des deux nombres binaires
+        NombreBinaire mot1 = new NombreBinaire(getMsgReceive());
         setMsgReceive(getClient().receiveMessage());
-        MotBinaire mot2 = new MotBinaire(getMsgReceive());
+        NombreBinaire mot2 = new NombreBinaire(getMsgReceive());
 
-        MotBinaire mot3 = mot1.soustracionMod2p32(mot2);
+        //Effectuer la soustraction
+        return mot1.soustraction(mot2).toString();
         
-        String res =  mot3.toString();
-        
-        return res;
     }
     
 }

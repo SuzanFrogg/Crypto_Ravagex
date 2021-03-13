@@ -1,0 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package challenges;
+
+import donnees.MotBinaire;
+import java.io.IOException;
+
+/**
+ * Classe permettant la validation du challenge n°3 : Décalage
+ * @author mathy
+ */
+public class Decalage extends Challenge {
+
+    /**
+     * Pour valider le challenge Décalage, il faut renvoyer le nombre binaire
+     * décalé d'un nombre donné de 0
+     * @return le nombre binaire décalé
+     * @throws IOException 
+     */
+    @Override
+    public String communicate() throws IOException {
+        MotBinaire mot = new MotBinaire(getMsgReceive());
+        setMsgReceive(getClient().receiveMessage());
+        int decalage = Integer.parseInt(getMsgReceive());
+        ///////////////////////////////////PAS TERMINE//////////////////////////
+        
+        return "";
+    }
+    
+}
