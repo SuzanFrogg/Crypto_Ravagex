@@ -23,11 +23,11 @@ public class Decalage extends Challenge {
     @Override
     public String communicate() throws IOException {
         MotBinaire mot = new MotBinaire(getMsgReceive());
+        NombreBinaire mot1 = new NombreBinaire(getMsgReceive());
         setMsgReceive(getClient().receiveMessage());
         int decalage = Integer.parseInt(getMsgReceive());
-        ///////////////////////////////////PAS TERMINE//////////////////////////
         
-        return "";
+        return mot1.decalage(decalage).toString();
     }
     
 }

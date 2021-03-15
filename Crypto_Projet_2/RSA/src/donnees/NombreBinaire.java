@@ -211,8 +211,15 @@ public class NombreBinaire {
      
      //Caclule le décalage de n bits (multiplie par 2^n)
      public NombreBinaire decalage(int n) {
-       //TODO
-       return null;
+       int dec = n;
+       String s = "";
+       for (int i = 0; i<n; i++){
+           s += '0';
+       }
+       String mot = this.toString();
+       mot += s;
+       NombreBinaire nb = new NombreBinaire(mot);
+       return nb;
      }
      
      //Calcul la multiplication de this avec mot2
