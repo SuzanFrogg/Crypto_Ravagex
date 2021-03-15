@@ -192,7 +192,7 @@ public class NombreBinaire {
             int nb1 = bitSet1.get(i) ? 1 : 0; // 1 si true, 0 si false
             int nb2 = bitSet2.get(i) ? 1 : 0;
             
-            int calc = (retenue - nb1 - nb2);
+            int calc = (nb1 - nb2 - retenue);
              
             retenue = calc < 0 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
                
