@@ -28,10 +28,25 @@ public class NombreBinaire {
     }
     
     
-    //renvoie un nombre aléatoire entre min (inclu) et max (non inclu)
+    /**
+     * Renvoie un nombre aléatoire entre min (inclu) et max (non inclu) 
+     * @param min le nombre minimum INclu
+     * @param max le nombre maximum EXclu 
+     * @return 
+     */
     public static NombreBinaire random(NombreBinaire min,NombreBinaire max) {
-       //TODO
-       return null;
+       int Imin = 0,Imax = 0;
+       NombreBinaire res = null;
+        try {
+            Imin = min.asInteger();
+            Imax = max.asInteger();
+            Random rand = new Random();
+            res = new NombreBinaire(rand.nextInt(Imax - 1 - Imin)+Imin);
+
+        } catch (ExceptionConversionImpossible ex) {
+            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return res;
     }
    
     
@@ -233,13 +248,13 @@ public class NombreBinaire {
       * @author Manon
       * Renvoie si this est plus petit ou égal à mot2
       * @param mot2
-      * @return 
+      * @return true s'il est inferieur
       */
      public boolean estInferieurA(NombreBinaire mot2) {
          boolean res = false;
         try {
             //Vérification de mot1 inférieur à mot2
-            res = (this.asInteger()<=mot2.asInteger())? true : false;
+            res = (this.asInteger()<=mot2.asInteger());
         } catch (ExceptionConversionImpossible ex) {
             Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -247,17 +262,81 @@ public class NombreBinaire {
         return res;
      }
      
-     //Calcul this modulo mot2 via une division euclidienne
+     /**
+      * @author Mathys
+      * Calcul this modulo mot2 via une division euclidienne
+      * @param mot2 le deuxième NombreBinaire
+      * @return le résultat de this modulo mot2
+      */
      public NombreBinaire modulo(NombreBinaire mot2) {
-       //TODO
-       return null;
+         //Déclaration des variables
+         NombreBinaire a = new NombreBinaire(this);
+         NombreBinaire b = new NombreBinaire(mot2);
+         NombreBinaire r = new NombreBinaire(a);
+         int n = 0;
+         
+         //Calcul jusqu’à ce que r < b.
+         do {
+             //1. Soit n le décalage nécessaire pour que r et b est la même taille.
+             n = r.getTaille()-b.getTaille();
+             //Si b est plus grand, le calcul est inutile, on renvoie le Nombre
+             if(n<0) return r;
+             
+             //2. On calcule b′, b décalé de n bits.
+             NombreBinaire bPrime = b.decalage(n);
+             
+             //3. Si b′ > r alors 
+             if(r.estInferieurA(bPrime)) {
+                 //on remplace b′ par b décalé de n-1 bits 
+                 bPrime = b.decalage(n-1);
+                 //n par n-1.
+                 n--;
+             }
+             
+             //4. On remplace r par r - b′.
+             r = r.soustraction(bPrime);
+         }while(!r.estInferieurA(b));
+         //On retourne le reste de la division
+         return r;
      }  
 
      //Calcul le quotient dans la division euclidienne de this par mot2
-     public NombreBinaire quotient(NombreBinaire mot2) {
-       //TODO
-       return null;
-     }
+      public NombreBinaire quotient(NombreBinaire mot2) {
+      //Déclaration des variables
+         NombreBinaire a = new NombreBinaire(this);
+         NombreBinaire b = new NombreBinaire(mot2);
+         NombreBinaire r = new NombreBinaire(a);
+         int q = 0;
+         int n = 0;
+         
+         //Calcul jusqu’à ce que r < b.
+         do {
+             //1. Soit n le décalage nécessaire pour que r et b est la même taille.
+             n = r.getTaille()-b.getTaille();
+             //Si b est plus grand, le calcul est inutile, on renvoie le Nombre
+             if(n<0) return new NombreBinaire(q);
+             
+             //2. On calcule b′, b décalé de n bits.
+             NombreBinaire bPrime = b.decalage(n);
+             
+             //3. Si b′ > r alors 
+             if(r.estInferieurA(bPrime)) {
+                 //on remplace b′ par b décalé de n-1 bits 
+                 bPrime = b.decalage(n-1);
+                 //n par n-1.
+                 n--;
+             }
+             
+             //4. On remplace r par r - b′.
+             r = r.soustraction(bPrime);
+             
+             //5. On ajoute 2^n à q.
+             q +=Math.pow(2, n);
+             
+         }while(!r.estInferieurA(b));
+         //On retourne le reste de la division
+         return new NombreBinaire(q);
+     }  
      
      //Calcul de this^exposant modulo m par exponentiation modulaire rapide
      public NombreBinaire puissanceModulo(NombreBinaire exposant, NombreBinaire m) {
@@ -266,15 +345,14 @@ public class NombreBinaire {
      }
      /**
       * @author Mathys
-      * @param mot2
-      * @return
-      * @throws ExceptionConversionImpossible 
+      * @param mot2 le NombreBinaire à comparer
+      * @return true si les deux Nombres binaire sont egaux
       */
      public boolean estEgal(NombreBinaire mot2){
         boolean res = false;
         try {
             //Retourner "true" si il y a égalité.
-             res = (this.asInteger()==mot2.asInteger())? true : false;
+             res = (this.asInteger()==mot2.asInteger());
         } catch (ExceptionConversionImpossible ex) {
             Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -283,17 +361,13 @@ public class NombreBinaire {
      
      //Renvoie si un nombre est pair
      public boolean estPair() {
-        boolean res = false;
 
         //Si le nombre binaire est très grand, le calcul plantera donc
             //on n'effectue le calcul que sur le dernier digit
         int lastDigit = this.get(0)? 1:0;
         //lastDigit est à false si le dernier bit est un 0, true sinon
         //Donc le calcul de lastDigit % 2 == 0 
-        res = (lastDigit % 2 == 0)? true : false;       
-         System.out.println("lastDigit : "+lastDigit+" res : "+res);
-        
-        return res;
+        return (lastDigit % 2 == 0);
      }
      
      

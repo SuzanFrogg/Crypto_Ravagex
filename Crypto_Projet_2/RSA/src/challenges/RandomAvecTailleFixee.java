@@ -25,7 +25,7 @@ public class RandomAvecTailleFixee extends Challenge{
         //Réception de la taille 
         int taille = Integer.parseInt(getMsgReceive());
         
-        
+        //Renvoi d'un NombreBinaire aleatoire
         return NombreBinaire.randomAvecTailleMax(taille).toString();
     }
     

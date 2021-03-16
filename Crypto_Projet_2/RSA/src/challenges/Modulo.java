@@ -5,30 +5,30 @@
  */
 package challenges;
 
-import donnees.MotBinaire;
 import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
- * Classe permettant la validation du challenge n°3 : Décalage
+ * Classe permettant la validation du challenge n°10 : Modulo
  * @author mathy
  */
-public class Decalage extends Challenge {
+public class Modulo extends Challenge{
 
     /**
-     * Pour valider le challenge Décalage, il faut renvoyer le nombre binaire
-     * décalé d'un nombre donné de 0
-     * @return le nombre binaire décalé
+     * Pour valider le challenge Modulo: il faut renvoyer le reste de la division
+     * euclidienne des deux Nombres Binaires recus
+     * @return le reste sous forme de NombreBinaire
      * @throws IOException 
      */
     @Override
     public String communicate() throws IOException {
-        //Récupération du NombreBinaire et du décalage demandé
+        //Récupérer les deux binaires
         NombreBinaire mot1 = new NombreBinaire(getMsgReceive());
         setMsgReceive(getClient().receiveMessage());
-        int decalage = Integer.parseInt(getMsgReceive());
-        //Execution et renvoi du Nombre décalé
-        return mot1.decalage(decalage).toString();
+        NombreBinaire mot2 = new NombreBinaire(getMsgReceive());
+        
+        //Renvoi le reste de la division euclidienne
+        return mot1.modulo(mot2).toString();
     }
     
 }
