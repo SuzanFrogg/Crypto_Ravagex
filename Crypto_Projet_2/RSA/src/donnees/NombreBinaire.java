@@ -299,12 +299,30 @@ public class NombreBinaire {
       */
      public boolean estInferieurA(NombreBinaire mot2) {
          boolean res = false;
-        try {
-            //Vérification de mot1 inférieur à mot2
-            res = (this.asInteger()<=mot2.asInteger());
-        } catch (ExceptionConversionImpossible ex) {
-            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         //comparaison en fonction de la taille
+         if (this.getTaille()< mot2.getTaille()){
+             res = true;
+         }
+         else if (mot2.getTaille()<this.getTaille()){
+             res = false;
+         }
+         //si tailles égales, comparaison bit par bit
+         else{
+             int i = 1;
+             do{
+                 int b1 = this.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
+                 int b2 = mot2.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
+                 if (b1 < b2){
+                     res = true;
+                     i = this.getTaille() + 1;
+                 } else if (b2 < b1) {
+                     res = false;
+                     i = this.getTaille() + 1;
+                 }else{
+                     i++;
+                 }
+             }while (i<= this.getTaille());
+         }
         
         return res;
      }
