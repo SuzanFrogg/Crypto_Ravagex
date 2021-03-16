@@ -1,0 +1,20 @@
+Défi non validés :
+8 - Multiplication
+9 - Quotient
+10 - Modulo
+
+
+
+Défis validés : 
+1 - ConnexionServeur
+2 - Addition (5 secondes d'éxecution.. à revoir peut-être)
+3 - Décalage
+4 - Soustraction à terminer quelque chose est faux
+5 - Est Inférieur
+6 - Est Egal
+7 - Est Pair
+
+11 - Random avec taille fixée
+
+
+14 - Random avec Bornes
