@@ -1,10 +1,8 @@
 Défi non validés :
-9 - Quotient
-10 - Modulo
 
 12 - Puissance Modulaire 
-13 - PGCD
 
+15 - Inverse Modulaire
 
 Défis validés : 
 1 - ConnexionServeur
@@ -15,9 +13,9 @@ Défis validés :
 6 - Est Egal
 7 - Est Pair
 8 - Multiplication
-
-
+9 - Quotient
+10 - Modulo
 11 - Random avec taille fixée
 
-
+13 - PGCD
 14 - Random avec Bornes

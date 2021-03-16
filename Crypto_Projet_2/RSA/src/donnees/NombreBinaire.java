@@ -269,7 +269,12 @@ public class NombreBinaire {
        return nb;
      }
      
-     //Calcul la multiplication de this avec mot2
+     /**
+      * @author Albane
+      * Calcul la multiplication de this avec mot2
+      * @param mot2 le 2eme nombre binaire
+      * @return le resultat de la multiplication
+      */
      public NombreBinaire multiplication(NombreBinaire mot2) {
         //initialisation des variables de travail
         NombreBinaire res = new NombreBinaire(0);
@@ -331,7 +336,7 @@ public class NombreBinaire {
       * @author Mathys
       * Calcul this modulo mot2 via une division euclidienne
       * @param mot2 le deuxième NombreBinaire
-      * @return le résultat de this modulo mot2
+      * @return le reste de la division euclidienne
       */
      public NombreBinaire modulo(NombreBinaire mot2) {
          //Déclaration des variables
@@ -365,9 +370,14 @@ public class NombreBinaire {
          return r;
      }  
 
-     //Calcul le quotient dans la division euclidienne de this par mot2
+     //
+     /**
+      * Calcul le quotient dans la division euclidienne de this par mot2
+      * @param mot2 le deuxième NombreBinaire
+      * @return le quotient de la division euclidienne
+      */
       public NombreBinaire quotient(NombreBinaire mot2) {
-      //Déclaration des variables
+         //Déclaration des variables
          NombreBinaire a = new NombreBinaire(this);
          NombreBinaire b = new NombreBinaire(mot2);
          NombreBinaire r = new NombreBinaire(a);
@@ -435,10 +445,31 @@ public class NombreBinaire {
         return (lastDigit % 2 == 0);
      }
      
-     
+     /**
+      * Calcul du PGCD de this par mot2
+      * @param mot2 le 2eme NombreBinaire
+      * @return le PGCD de ces deux nombres binaires
+      */
      public NombreBinaire PGCD(NombreBinaire mot2) {
-       //TODO
-       return null;
+         //Déclaration des variables
+         NombreBinaire a = new NombreBinaire(this);
+         NombreBinaire b = new NombreBinaire(mot2);
+         NombreBinaire temp = new NombreBinaire();
+         
+            //1. si a < b on échange a et b
+            if(a.estInferieurA(b)) {
+               temp = new NombreBinaire(a);
+               a = new NombreBinaire(b);
+               b = new NombreBinaire(temp);
+            }
+            
+        //2. Tant que b n’est pas nul, on remplace b par a modulo b et a par b.
+        while(!b.estEgal(new NombreBinaire(0))) {    
+            temp = new NombreBinaire(b);
+            b = a.modulo(b);
+            a = temp;
+         }
+         return a;
      }
      
      //Calcul de l'inverse modulo nombre

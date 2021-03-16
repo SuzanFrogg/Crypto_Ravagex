@@ -2,7 +2,7 @@ package main.java;
 
 
 import challenges.Challenge;
-import challenges.Quotient;
+import challenges.InverseModulaire;
 import exceptions.ExceptionCryptographie;
 
 /*
@@ -22,7 +22,7 @@ public class NewMain {
      * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new Quotient();
+        Challenge challenge = new InverseModulaire();
     }
     
 }
