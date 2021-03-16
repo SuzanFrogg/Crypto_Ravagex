@@ -167,7 +167,7 @@ public class NombreBinaire {
      * @throws ExceptionConversionImpossible 
      */
      public NombreBinaire addition(NombreBinaire mot2) {
-             int retenue = 0;
+            /* int retenue = 0;
              NombreBinaire B1 = new NombreBinaire(this);
              NombreBinaire B2 = new NombreBinaire(mot2);
              BitSet bitSet = new BitSet();
@@ -188,7 +188,39 @@ public class NombreBinaire {
                Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
             }
              
-             return new NombreBinaire(bitSet);
+             return new NombreBinaire(bitSet); */
+            
+        int retenue = 0;        
+        BitSet bR = new BitSet();
+        BitSet bitSet1 = this.listeBits;
+        BitSet bitSet2 = mot2.asBitSet();
+        
+        int taille = 0;
+        if (this.getTaille()>mot2.getTaille()){
+            taille = this.getTaille();
+        }
+        else{
+            taille = mot2.getTaille();
+        }
+        for(int i = 0; i < taille; i++) {
+            int nb1 = bitSet1.get(i) ? 1 : 0; // 1 si true, 0 si false
+            int nb2 = bitSet2.get(i) ? 1 : 0;
+            
+            int calc = (nb1 + nb2 + retenue);
+             
+            retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
+            
+            boolean res = calc % 2 == 1; //si calc == 1  le bit est true
+            
+            bR.set(i, res);
+        }
+        if (retenue == 1){
+            bR.set(taille, true);
+        }
+        
+        NombreBinaire mot3 = new NombreBinaire(bR);
+        
+        return mot3;
      }
      
      //renvoie le resultat de l'addition de this avec mot3
@@ -239,8 +271,23 @@ public class NombreBinaire {
      
      //Calcul la multiplication de this avec mot2
      public NombreBinaire multiplication(NombreBinaire mot2) {
-       //TODO
-       return null;
+        //initialisation des variables de travail
+        NombreBinaire res = new NombreBinaire(0);
+        NombreBinaire temp = new NombreBinaire(0);
+        //boucle permettant de trouver les bits à 1
+        for(int i=0; i<mot2.getTaille(); i++){
+            //si le bit est à 1, on fait le décalage de l'endroit ou il est - 1 soit i
+            if (mot2.get(i)){
+                temp = this.decalage(i);
+            }
+            //sinon pas de décalage
+            else{
+                temp = new NombreBinaire(0);
+            }
+            // adition au fur et à mesure
+            res = temp.addition(res);
+       }
+       return res;
      }
      
      //
