@@ -16,7 +16,7 @@ public class RandomAvecBornes extends Challenge {
 
     /**
      * Pour valider le challenge Random avec bornes
-     * @return 
+     * @return un nombre binaire aléatoire entre les deux reçus
      * @throws IOException 
      */
     @Override
@@ -26,6 +26,7 @@ public class RandomAvecBornes extends Challenge {
         setMsgReceive(getClient().receiveMessage());
         NombreBinaire max = new NombreBinaire(getMsgReceive());
         
+        //Calcul d'un random borné
         return NombreBinaire.random(min, max).toString();
         }
     

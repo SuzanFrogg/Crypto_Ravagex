@@ -14,7 +14,12 @@ public class NombreBinaire {
         
     private BitSet listeBits;
     
-    //Génère un nombre binaire aléatoire de "taille" bits au maximum.
+    /**
+     * @author Mathys
+     * Génère un nombre binaire aléatoire de "taille" bits au maximum.
+     * @param taille la taille maximale autorisée
+     * @return Un nombre binaire de la 
+     */
     public static NombreBinaire randomAvecTailleMax(int taille) {
         //Il y a une probabilité d'obtenir comme taille 0, il faut le prendre en compte
         String res = (taille==0)? "":"1";
@@ -29,24 +34,26 @@ public class NombreBinaire {
     
     
     /**
+     * @author Mathys
      * Renvoie un nombre aléatoire entre min (inclu) et max (non inclu) 
      * @param min le nombre minimum INclu
      * @param max le nombre maximum EXclu 
      * @return 
      */
     public static NombreBinaire random(NombreBinaire min,NombreBinaire max) {
-       int Imin = 0,Imax = 0;
-       NombreBinaire res = null;
-        try {
-            Imin = min.asInteger();
-            Imax = max.asInteger();
-            Random rand = new Random();
-            res = new NombreBinaire(rand.nextInt(Imax - 1 - Imin)+Imin);
-
-        } catch (ExceptionConversionImpossible ex) {
-            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
+        //Si il n'y a que un de différence entre min et max alors renvoyé min
+        if(min.addition(new NombreBinaire(1)).toString().equals(max.toString())) {
+            return min;
         }
-       return res;
+        
+        //Sinon il faut effectuer des 
+        NombreBinaire diff = max.soustraction(min);
+        NombreBinaire res = null;
+
+        while(res== null || !res.estInferieurA(diff)){
+            res = NombreBinaire.randomAvecTailleMax(diff.getTaille());
+        }
+         return res.addition(min);
     }
    
     
@@ -161,35 +168,13 @@ public class NombreBinaire {
      
     /**
      * @author Manon
+     * @author Albane
      * Renvoie le résultat de l'addition de this avec mot2
      * @param mot2 un second NombreBinaire
      * @return l'addition des deux nombres Binaires sous la forme d'un nombre Binaire
      * @throws ExceptionConversionImpossible 
      */
      public NombreBinaire addition(NombreBinaire mot2) {
-            /* int retenue = 0;
-             NombreBinaire B1 = new NombreBinaire(this);
-             NombreBinaire B2 = new NombreBinaire(mot2);
-             BitSet bitSet = new BitSet();
-             try {
-                 int max = (B1.asInteger()>B2.asInteger())? B1.asInteger() : B2.asInteger();
-                 for(int i=0;i<max;i++){
-                     int intB1 = B1.get(i) ? 1 : 0; // 1 si true, 0 si false
-                     int intB2 = B2.get(i) ? 1 : 0;
-                     int calc = (retenue + intB1 + intB2);
-
-                     retenue = calc > 1 ? 1 : 0; //si calc est supérieur à 1 la retenue est égale a 1
-
-                     boolean res = calc % 2 == 1; //si calc == 1  le bit est true
-
-                     bitSet.set(i, res);
-               }               
-            } catch (ExceptionConversionImpossible ex) {
-               Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             
-             return new NombreBinaire(bitSet); */
-            
         int retenue = 0;        
         BitSet bR = new BitSet();
         BitSet bitSet1 = this.listeBits;
@@ -223,7 +208,13 @@ public class NombreBinaire {
         return mot3;
      }
      
-     //renvoie le resultat de l'addition de this avec mot3
+     
+     /**
+      * @author Manon
+      * renvoie le resultat de la soustraction de this avec mot2
+      * @param mot2 le Nombre Binaire à soustraire
+      * @return la difference des deux mots
+      */
      public NombreBinaire soustraction(NombreBinaire mot2) {
       /**
      * Renvoie le résultat de this   - mot2 [2^32]
@@ -411,12 +402,34 @@ public class NombreBinaire {
          }while(!r.estInferieurA(b));
          //On retourne le reste de la division
          return new NombreBinaire(q);
-     }  
-     
-     //Calcul de this^exposant modulo m par exponentiation modulaire rapide
+     }
+      
+      
+     /**
+      * @author Mathys
+      * Calcul de this^exposant modulo m par exponentiation modulaire rapide
+      * @param exposant un Nombre Binaire
+      * @param m un Nombre Binaire
+      * @return 
+      */ 
      public NombreBinaire puissanceModulo(NombreBinaire exposant, NombreBinaire m) {
-       //TODO
-       return null;
+       int eqExposant = 1;
+       NombreBinaire res = new NombreBinaire(this);
+       
+       while(new NombreBinaire(eqExposant).estInferieurA(exposant)) {
+           // Addition afin de converser les résultats précédents
+           //Multiplication  pour faire la puissance actuelle
+           res = res.addition(res.multiplication(res));
+           eqExposant = eqExposant*2;
+           
+           //On effectue le module à chaque étape pour ne pas avoir à 
+            //manipuler de trop grands nombres
+           res = res.modulo(m);
+       }
+       //calcul final de res x^1 * 7 = x^16 8 x
+       res = res.addition(res.multiplication(this).multiplication(new NombreBinaire(7)));
+       res = res.modulo(m);
+       return res;
      }
      /**
       * @author Mathys
@@ -424,14 +437,8 @@ public class NombreBinaire {
       * @return true si les deux Nombres binaire sont egaux
       */
      public boolean estEgal(NombreBinaire mot2){
-        boolean res = false;
-        try {
             //Retourner "true" si il y a égalité.
-             res = (this.asInteger()==mot2.asInteger());
-        } catch (ExceptionConversionImpossible ex) {
-            Logger.getLogger(NombreBinaire.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return res;
+            return (this.toString().equals(mot2.toString()));
      }
      
      //Renvoie si un nombre est pair
