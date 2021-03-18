@@ -294,7 +294,7 @@ public class NombreBinaire {
       * @return true s'il est inferieur
       */
      public boolean estInferieurA(NombreBinaire mot2) {
-         boolean res = false;
+         boolean res = true;
          //comparaison en fonction de la taille
          if (this.getTaille()< mot2.getTaille()){
              res = true;
@@ -337,26 +337,22 @@ public class NombreBinaire {
          int n = 0;
          
          //Calcul jusqu’à ce que r < b.
-         do {
+         while(b.estInferieurA(r)) {
              //1. Soit n le décalage nécessaire pour que r et b est la même taille.
              n = r.getTaille()-b.getTaille();
-             //Si b est plus grand, le calcul est inutile, on renvoie le Nombre
-             if(n<0) return r;
              
              //2. On calcule b′, b décalé de n bits.
              NombreBinaire bPrime = b.decalage(n);
              
              //3. Si b′ > r alors 
-             if(r.estInferieurA(bPrime)) {
+             if(!bPrime.estInferieurA(r)) {
                  //on remplace b′ par b décalé de n-1 bits 
                  bPrime = b.decalage(n-1);
-                 //n par n-1.
-                 n--;
              }
-             
              //4. On remplace r par r - b′.
              r = r.soustraction(bPrime);
-         }while(!r.estInferieurA(b));
+         
+         }
          //On retourne le reste de la division
          return r;
      }  
@@ -376,17 +372,15 @@ public class NombreBinaire {
          int n = 0;
          
          //Calcul jusqu’à ce que r < b.
-         do {
+         while(b.estInferieurA(r)){
              //1. Soit n le décalage nécessaire pour que r et b est la même taille.
              n = r.getTaille()-b.getTaille();
-             //Si b est plus grand, le calcul est inutile, on renvoie le Nombre
-             if(n<0) return new NombreBinaire(q);
              
              //2. On calcule b′, b décalé de n bits.
              NombreBinaire bPrime = b.decalage(n);
              
              //3. Si b′ > r alors 
-             if(r.estInferieurA(bPrime)) {
+             if(!bPrime.estInferieurA(r)) {
                  //on remplace b′ par b décalé de n-1 bits 
                  bPrime = b.decalage(n-1);
                  //n par n-1.
@@ -399,7 +393,7 @@ public class NombreBinaire {
              //5. On ajoute 2^n à q.
              q +=Math.pow(2, n);
              
-         }while(!r.estInferieurA(b));
+         }
          //On retourne le reste de la division
          return new NombreBinaire(q);
      }
