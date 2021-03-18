@@ -1,3 +1,9 @@
+A verifier :
+quotient
+modulo
+multiplication
+soustraction
+
 Défi non validés :
 
 12 - Puissance Modulaire 

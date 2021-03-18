@@ -305,7 +305,7 @@ public class NombreBinaire {
          //si tailles égales, comparaison bit par bit
          else{
              int i = 1;
-             do{
+             while (i<= this.getTaille()){
                  int b1 = this.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  int b2 = mot2.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  if (b1 < b2){
@@ -317,7 +317,7 @@ public class NombreBinaire {
                  }else{
                      i++;
                  }
-             }while (i<= this.getTaille());
+             }
          }
         
         return res;
@@ -492,7 +492,7 @@ public class NombreBinaire {
          NombreBinaire q = n0.quotient(b0);
          NombreBinaire r = n0.modulo(b0);
          while(!r.estEgal(ZERO)) {
-             NombreBinaire produit = q.multiplication(t);
+                NombreBinaire produit = q.multiplication(t);
              NombreBinaire memoire;
              //Gére le fait qu'un nombreBinaire ne peut pas être négatif......
              if(t0.estInferieurA(produit)) {
