@@ -3,8 +3,6 @@ package donnees;
 import exceptions.ExceptionConversionImpossible;
 import java.util.BitSet;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Description de la classe
@@ -407,24 +405,21 @@ public class NombreBinaire {
       * @return 
       */ 
      public NombreBinaire puissanceModulo(NombreBinaire exposant, NombreBinaire m) {
-       int eqExposant = 1;
-       NombreBinaire res = new NombreBinaire(this);
+       NombreBinaire p = new NombreBinaire(1);
+       NombreBinaire base = new NombreBinaire(this);
        
-       while(new NombreBinaire(eqExposant).estInferieurA(exposant)) {
-           // Addition afin de converser les résultats précédents
-           //Multiplication  pour faire la puissance actuelle
-           res = res.addition(res.multiplication(res));
-           eqExposant = eqExposant*2;
+       for(int i = exposant.getTaille()-1;i>0;i--) {
+           if(exposant.get(i)) {
+               p = p.multiplication(base);
+               p = p.modulo(m);
+           }
            
-           //On effectue le module à chaque étape pour ne pas avoir à 
-            //manipuler de trop grands nombres
-           res = res.modulo(m);
+           base = base.multiplication(base).modulo(m);
        }
-       //calcul final de res x^1 * 7 = x^16 8 x
-       res = res.addition(res.multiplication(this).multiplication(new NombreBinaire(7)));
-       res = res.modulo(m);
-       return res;
+       
+       return p;
      }
+     
      /**
       * @author Mathys
       * @param mot2 le NombreBinaire à comparer
