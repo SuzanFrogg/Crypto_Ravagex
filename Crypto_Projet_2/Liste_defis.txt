@@ -1,14 +1,11 @@
 A verifier :
-quotient
-modulo
-multiplication
-soustraction
 
 Défi non validés :
 
-12 - Puissance Modulaire 
-
-15 - Inverse Modulaire
+16 - Témoin de Rabin-Miller
+17 - chiffrer un morceau
+18 - Déchiffrer un morceau
+20 - Générer la clé privée
 
 Défis validés : 
 1 - ConnexionServeur
@@ -22,6 +19,7 @@ Défis validés :
 9 - Quotient
 10 - Modulo
 11 - Random avec taille fixée
-
+12 - Puissance Modulaire 
 13 - PGCD
 14 - Random avec Bornes
+15 - Inverse Modulaire
