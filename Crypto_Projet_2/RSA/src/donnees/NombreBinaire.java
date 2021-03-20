@@ -408,7 +408,7 @@ public class NombreBinaire {
        NombreBinaire p = new NombreBinaire(1);
        NombreBinaire base = new NombreBinaire(this);
        
-       for(int i = exposant.getTaille()-1;i>0;i--) {
+       for(int i = 0;i<=exposant.getTaille();i++) {
            if(exposant.get(i)) {
                p = p.multiplication(base);
                p = p.modulo(m);
