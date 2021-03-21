@@ -1,6 +1,9 @@
 package algorithmes.chiffrement;
 
+import static algorithmes.chiffrement.RSA.ParametresRSA.getTailleCle;
 import donnees.MotBinaire;
+import donnees.NombreBinaire;
+import donnees.cles.Cle;
 import donnees.cles.Cles;
 import donnees.messages.Message;
 import exceptions.ExceptionConversionImpossible;

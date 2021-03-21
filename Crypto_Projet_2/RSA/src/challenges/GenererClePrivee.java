@@ -29,6 +29,7 @@ public class GenererClePrivee extends Challenge{
      */
     @Override
     public String communicate() throws IOException {
+        try {
             //Récupération de P puis Q et e
             NombreBinaire p = new NombreBinaire(getMsgReceive());
             setMsgReceive(getClient().receiveMessage());
@@ -43,9 +44,13 @@ public class GenererClePrivee extends Challenge{
             
             //Execution et renvoi du Nombre décalé
             Cle d = generator.genererClePrivee().getCle("privee");
-            return d. ;
+            
+            return d.asMotBinaire().toString() ;
+        } catch (ExceptionConversionImpossible ex) {
+            Logger.getLogger(GenererClePrivee.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-
+        return "";
     }
     
 }
