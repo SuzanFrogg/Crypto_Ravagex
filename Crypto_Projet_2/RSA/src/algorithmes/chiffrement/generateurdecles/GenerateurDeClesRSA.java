@@ -34,17 +34,20 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
      */
     @Override
     public Cles genererClePrivee() {
+        //Preparation du trousseau de cles
         Cles cles = new Cles();
-        //Calcul de phi en trois étapes séparées
-        NombreBinaire tempP = this.P.soustraction(new NombreBinaire(1));
-        NombreBinaire tempQ = this.Q.soustraction(new NombreBinaire(1));
-        //Pour obtenir phi = (P -1)(Q-1)
-        this.phi = tempP.multiplication(tempQ);
-        //Calcul de d en deux étapes, en NombreBinaire puis convertion en mot
-        NombreBinaire pred = this.e.inverseModulaire(this.phi);
-        MotBinaire d = new MotBinaire(pred.toString());
-        //Puis ajout de la clé à la liste et renvoi de la liste
-        CleBinaire k = new CleBinaire(d);
+        //NombreBinaire 1 utile pour les calculs
+     	NombreBinaire One = new NombreBinaire(1);
+     	/*NombreBinaire PQ = this.P.multiplication(Q);
+     	NombreBinaire PminusQ = this.P.soustraction(Q);
+     	this.phi = (PQ.soustraction(PminusQ).addition(One));*/
+        NombreBinaire p1 = this.P.soustraction(One);
+        NombreBinaire d1 = this.Q.soustraction(One);
+        this.phi = p1.multiplication(d1);
+     	NombreBinaire nbD = this.e.inverseModulaire(this.phi);
+
+     	MotBinaire motD = new MotBinaire(nbD.asBitSet(),ParametresRSA.getTailleCle());
+        CleBinaire k = new CleBinaire(motD);
         cles.addCle("privee", k);
         return cles;
     }
