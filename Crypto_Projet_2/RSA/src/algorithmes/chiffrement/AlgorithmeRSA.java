@@ -44,8 +44,16 @@ public class AlgorithmeRSA implements Algorithme{
 
     @Override
     public Message chiffrer(Message message, Cles clesPubliques, Cles clesPrivees) throws ExceptionCryptographie {
-       //TODO
-       return null;
+       MotBinaire mBase = message.asMotBinaire();
+       MotBinaire m = new MotBinaire();
+       ArrayList<MotBinaire> array = mBase.scinder(getTailleMorceau());
+       for (int i = 0; i<array.size(); i++){
+           MotBinaire morceau = array.get(i);
+           morceau = this.chiffrerMorceau(morceau, clesPubliques);
+           m = m.concatenation(morceau);
+       }
+       
+       return new MessageBinaire(m);
     }
 
     @Override
