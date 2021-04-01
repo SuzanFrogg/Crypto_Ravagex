@@ -17,7 +17,6 @@ public class AlgorithmeRSA implements Algorithme{
         return "RSA";
     }
     
-    //ATTENTION NE MARCHE PAS
     //Chiffre un morceau (entrée : tailleMorceau, sortie : tailleCle)
     public MotBinaire chiffrerMorceau(MotBinaire morceau, Cles clesPublique) throws ExceptionConversionImpossible {
        //On initialise les 2 morceaux de la clé RSA grâce à clesPublique
@@ -25,10 +24,10 @@ public class AlgorithmeRSA implements Algorithme{
        Cle e = clesPublique.getCle("cleRSA_e");
        
        MotBinaire eBis = e.asMotBinaire();
-       NombreBinaire eNb = new NombreBinaire(eBis.toString());
+       NombreBinaire eNb = new NombreBinaire(eBis.getBitSet());
        
        MotBinaire NBis = N.asMotBinaire();
-       NombreBinaire NNb = new NombreBinaire(NBis.toString());
+       NombreBinaire NNb = new NombreBinaire(NBis.getBitSet());
        
        NombreBinaire n = new NombreBinaire(morceau.toString());
        n = n.puissanceModulo(eNb, NNb);

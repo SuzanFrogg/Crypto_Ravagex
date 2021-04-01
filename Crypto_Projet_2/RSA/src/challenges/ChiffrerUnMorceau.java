@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class ChiffrerUnMorceau extends Challenge{
 
     
-    //ATTENTION NE MARCHE PAS ENCORE
     @Override
     public String communicate() throws IOException {
         String res = "ALED";
@@ -32,7 +31,6 @@ public class ChiffrerUnMorceau extends Challenge{
         NombreBinaire n1 = new NombreBinaire(getMsgReceive());
         setMsgReceive(getClient().receiveMessage());
         NombreBinaire n2 = new NombreBinaire(getMsgReceive());
-        setMsgReceive(getClient().receiveMessage());
         
         CleBinaire N = new CleBinaire(new MotBinaire(n1.toString()));
         CleBinaire e = new CleBinaire(new MotBinaire(n2.toString()));
