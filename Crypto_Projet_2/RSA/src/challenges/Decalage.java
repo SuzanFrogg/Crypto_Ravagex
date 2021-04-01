@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°3 : Décalage
- * @author mathy
+ * @author Mathys
  */
 public class Decalage extends Challenge {
 
