@@ -304,15 +304,15 @@ public class NombreBinaire {
          else{
              boolean sortie = false;
              int i = 1;
-             while (sortie == false){
+             while ( i<= this.getTaille()){
                  int b1 = this.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  int b2 = mot2.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  if (b1 < b2){
                      res = true;
-                     sortie = true;
+                     i = this.getTaille() + 1;
                  } else if (b2 < b1) {
                      res = false;
-                     sortie = true;
+                     i = this.getTaille() + 1;
                  }else{
                      i++;
                  }

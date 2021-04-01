@@ -5,6 +5,8 @@ import challenges.Challenge;
 import challenges.GenererClePublique;
 
 import exceptions.ExceptionCryptographie;
+import protocoles.Protocole;
+import protocoles.ProtocoleRSA;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +25,8 @@ public class NewMain {
      * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new GenererClePublique();
+        Protocole rsa = new ProtocoleRSA();
+        rsa.executer();
     /*  import donnees.NombreBinaire; 
         NombreBinaire x = new NombreBinaire("0011111100011000");
         int s = 0;
