@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°23 : Nombre Premier
- * @author mathy
+ * @author Mathys
  */
 public class NombrePremier extends Challenge {
 

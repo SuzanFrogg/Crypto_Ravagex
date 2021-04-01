@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°11 : Random avec taille fixée
- * @author mathy
+ * @author Mathys
  */
 public class RandomAvecTailleFixee extends Challenge{
 

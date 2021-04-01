@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°19 : Test De Rabin Miller
- * @author mathy
+ * @author Mathys
  */
 public class TestdeRabbinMiller extends Challenge{
 

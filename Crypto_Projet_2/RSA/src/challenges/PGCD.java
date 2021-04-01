@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°13 : PGCD
- * @author mathy
+ * @author Mathys
  */
 public class PGCD extends Challenge{
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°12 : Puissance Modulaire
- * @author mathy
+ * @author Mathys
  */
 public class PuissanceModulaire extends Challenge {
 

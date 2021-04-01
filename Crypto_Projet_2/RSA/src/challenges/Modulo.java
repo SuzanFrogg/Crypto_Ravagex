@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°10 : Modulo
- * @author mathy
+ * @author Mathys
  */
 public class Modulo extends Challenge{
 

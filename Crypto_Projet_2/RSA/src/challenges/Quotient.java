@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°9 : Quotient
- * @author mathy
+ * @author Mathys
  */
 public class Quotient extends Challenge{
 

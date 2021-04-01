@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°14 : Random avec bornes
- * @author mathy
+ * @author Mathys
  */
 public class RandomAvecBornes extends Challenge {
 

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Classe permettant la validation du challenge n°15 : Inverse Modulaire
- * @author mathy
+ * @author Mathys
  */
 public class InverseModulaire extends Challenge{
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Classe permettant la validation du challenge n°4 : Soustraction
  * @author Manon
- * @author mathy
+ * @author Mathys
  */
 public class Soustraction extends Challenge {
     

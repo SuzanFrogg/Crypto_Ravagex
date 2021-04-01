@@ -9,11 +9,17 @@ import donnees.NombreBinaire;
 import java.io.IOException;
 
 /**
- *
- * @author alban
+ * Classe permettant la validation du challenge n°8 : Multiplication
+ * @author Albane
  */
 public class Multiplication extends Challenge{
 
+    /**
+     * Pour valider le challenge Multiplication, il faut valider la multiplication de 
+     * deux nombres binaires
+     * @return
+     * @throws IOException 
+     */
     @Override
     public String communicate() throws IOException {
         //Récupération des deux nombres binaires
