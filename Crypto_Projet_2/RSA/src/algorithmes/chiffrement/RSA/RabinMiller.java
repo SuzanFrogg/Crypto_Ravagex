@@ -69,14 +69,26 @@ public class RabinMiller {
             NombreBinaire max = n.soustraction(min);
             NombreBinaire a = NombreBinaire.random(min, max);
             //si le temoin renvoie true, alors le test de Rabin Miller échoue
-            if(temoin(n, a)) return false;
+            if(temoin(n, a)) { return false; }
         }
         return true;
     }
     
-    //Renvoie le premier nombre premier supérieur à min
+    /**
+     * Renvoie le premier nombre premier supérieur à min
+     * @param min le NombreBinaire d'origine
+     * @return le premier NombreBinaire après le nombreBinaire d'origine non premier
+     */
     public static NombreBinaire nombrePremier(NombreBinaire min) {
-       //TODO
-       return null;
+        //Si le nombre binaire est pair, le rendre impair
+        if(min.estPair()) {
+            min = min.addition(new NombreBinaire(1));
+        }
+        //Tant qu'il n'est pas premier, chercher pour le nombre binaire impair suivant
+        while(!testRabinMiller(min)) {
+            min = min.addition(new NombreBinaire(2));
+        }
+        //Return un nombre binaire premier
+        return min;
     }
 }

@@ -2,8 +2,8 @@ package main.java;
 
 
 import challenges.Challenge;
-import challenges.TestdeRabbinMiller ;
-import donnees.NombreBinaire;
+import challenges.NombrePremier ;
+
 import exceptions.ExceptionCryptographie;
 
 /*
@@ -23,8 +23,9 @@ public class NewMain {
      * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new TestdeRabbinMiller();
-    /*    NombreBinaire x = new NombreBinaire("0011111100011000");
+        Challenge challenge = new NombrePremier();
+    /*  import donnees.NombreBinaire; 
+        NombreBinaire x = new NombreBinaire("0011111100011000");
         int s = 0;
         for(int i = x.getTaille(); i >0;i--) {
             System.out.println("i : "+i+" - "+x.get(i));
