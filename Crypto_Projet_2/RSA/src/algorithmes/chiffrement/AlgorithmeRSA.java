@@ -1,13 +1,16 @@
 package algorithmes.chiffrement;
 
 import static algorithmes.chiffrement.RSA.ParametresRSA.getTailleCle;
+import static algorithmes.chiffrement.RSA.ParametresRSA.getTailleMorceau;
 import donnees.MotBinaire;
 import donnees.NombreBinaire;
 import donnees.cles.Cle;
 import donnees.cles.Cles;
 import donnees.messages.Message;
+import donnees.messages.MessageBinaire;
 import exceptions.ExceptionConversionImpossible;
 import exceptions.ExceptionCryptographie;
+import java.util.ArrayList;
 
 public class AlgorithmeRSA implements Algorithme{
 
