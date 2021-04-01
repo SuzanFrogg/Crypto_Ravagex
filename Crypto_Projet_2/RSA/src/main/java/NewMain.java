@@ -2,7 +2,7 @@ package main.java;
 
 
 import challenges.Challenge;
-import challenges.Dechiffrer;
+import challenges.GenererClePublique;
 
 import exceptions.ExceptionCryptographie;
 
@@ -23,7 +23,7 @@ public class NewMain {
      * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new Dechiffrer();
+        Challenge challenge = new GenererClePublique();
     /*  import donnees.NombreBinaire; 
         NombreBinaire x = new NombreBinaire("0011111100011000");
         int s = 0;

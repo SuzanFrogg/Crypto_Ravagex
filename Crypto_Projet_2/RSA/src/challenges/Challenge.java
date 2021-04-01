@@ -61,8 +61,8 @@ public abstract class Challenge implements Protocole
      * Fonction executer permettant de tester le challenge
      * @throws ExceptionCryptographie 
      */
-        @Override
-    public final void executer() throws ExceptionCryptographie {
+    @Override
+    public void executer() throws ExceptionCryptographie {
         boolean keepGoing = true; 
         try {
             do {
@@ -74,10 +74,11 @@ public abstract class Challenge implements Protocole
                     keepGoing = false;
                     continue;
                 }
-                //Pour certain challenge envoyant deux paramètre de calcul
+              //Pour certain challenge envoyant deux paramètre de calcul
                 //La condition est passé sans soucis
                 //Ou Reception du message de fin de défi
                 this.setMsgReceive(this.client.receiveMessage());
+              
                 //Si le défi est terminé, qu'il soit réussi ou non, il faut sortir de la boucle
                 if(this.getMsgReceive().startsWith("Defi valide") || this.getMsgReceive().startsWith("Defi echoue!") ) {
                     keepGoing = false;

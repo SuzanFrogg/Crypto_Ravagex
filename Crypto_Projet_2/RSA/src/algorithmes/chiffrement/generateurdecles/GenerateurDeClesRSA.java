@@ -1,9 +1,11 @@
 package algorithmes.chiffrement.generateurdecles;
 
 import algorithmes.chiffrement.RSA.ParametresRSA;
+import static algorithmes.chiffrement.RSA.ParametresRSA.getTailleDemiCle;
 import algorithmes.chiffrement.RSA.RabinMiller;
 import donnees.MotBinaire;
 import donnees.NombreBinaire;
+import static donnees.NombreBinaire.random;
 import donnees.cles.Cle;
 import donnees.cles.CleBinaire;
 import donnees.cles.Cles;
@@ -24,8 +26,45 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
         
     @Override
     public Cles genererClePublique() {
-       //TODO
-       return null;
+        //Preparation du trousseau de cles
+        Cles cles = new Cles();
+        
+        //Création des mins et max pour les randoms suivant
+        String strmax = "1",strmin ="1";
+        for(int i =0;i<getTailleDemiCle();i++) {
+            strmax+="1";
+            strmin+="0";
+        } 
+       NombreBinaire max = new NombreBinaire(strmax);
+       NombreBinaire min = new NombreBinaire(strmin);
+
+        do {
+            NombreBinaire preP = random(max,min);
+            NombreBinaire preQ = random(max,min);
+            P = RabinMiller.nombrePremier(preP);
+            Q = RabinMiller.nombrePremier(preQ);
+        }while(P.estEgal(Q));
+        this.N = this.P.multiplication(this.Q);
+        
+        //NombreBinaire 1 utile pour les calculs
+     	NombreBinaire One = new NombreBinaire(1);
+        NombreBinaire p1 = this.P.soustraction(One);
+        NombreBinaire d1 = this.Q.soustraction(One);
+        //Phi = (P-1)(Q-1)
+        this.phi = p1.multiplication(d1);
+        //E est un nombre premier de phi
+        this.e = RabinMiller.nombrePremier(this.phi);
+        
+        
+        //Création des deux clés et ajout au trousseau
+        MotBinaire motN = new MotBinaire();
+        MotBinaire motE = new MotBinaire();
+        CleBinaire kN = new CleBinaire(motN);
+        CleBinaire ke = new CleBinaire(motE);
+
+        cles.addCle("cleRSA_N",kN);
+        cles.addCle("cleRSA_e",ke);
+        return cles;
     }
 
     /**
@@ -47,8 +86,8 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
      	NombreBinaire nbD = this.e.inverseModulaire(this.phi);
 
      	MotBinaire motD = new MotBinaire(nbD.asBitSet(),ParametresRSA.getTailleCle());
-        CleBinaire k = new CleBinaire(motD);
-        cles.addCle("privee", k);
+        CleBinaire cleN = new CleBinaire(motD);
+        cles.addCle("privee", cleN);
         return cles;
     }
 
@@ -83,4 +122,26 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
     public void setE(NombreBinaire e) {
         this.e = e;
     }
+
+    public NombreBinaire getP() {
+        return P;
+    }
+
+    public NombreBinaire getQ() {
+        return Q;
+    }
+
+    public NombreBinaire getN() {
+        return N;
+    }
+
+    public NombreBinaire getPhi() {
+        return phi;
+    }
+
+    public NombreBinaire getE() {
+        return e;
+    }
+    
+    
 }
