@@ -302,16 +302,17 @@ public class NombreBinaire {
          }
          //si tailles égales, comparaison bit par bit
          else{
+             boolean sortie = false;
              int i = 1;
-             while (i<= this.getTaille()){
+             while (sortie == false){
                  int b1 = this.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  int b2 = mot2.get(this.getTaille()-i) ? 1 : 0; //1 si true, 0 si false
                  if (b1 < b2){
                      res = true;
-                     i = this.getTaille() + 1;
+                     sortie = true;
                  } else if (b2 < b1) {
                      res = false;
-                     i = this.getTaille() + 1;
+                     sortie = true;
                  }else{
                      i++;
                  }
