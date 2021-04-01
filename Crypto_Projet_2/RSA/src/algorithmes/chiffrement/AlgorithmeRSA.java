@@ -32,7 +32,7 @@ public class AlgorithmeRSA implements Algorithme{
        MotBinaire NBis = N.asMotBinaire();
        NombreBinaire NNb = new NombreBinaire(NBis.getBitSet());
        
-       NombreBinaire n = new NombreBinaire(morceau.toString());
+       NombreBinaire n = new NombreBinaire(morceau.getBitSet());
        n = n.puissanceModulo(eNb, NNb);
        
        MotBinaire res = new MotBinaire(n.asBitSet(), getTailleCle());
@@ -41,8 +41,21 @@ public class AlgorithmeRSA implements Algorithme{
     
     //Déchiffre un morceau (entrée : tailleCle, sortie : tailleMorceau)
     public MotBinaire dechiffrerMorceau(MotBinaire morceau, Cles clesPublique, Cles clesPrivee) throws ExceptionConversionImpossible {
-       //TODO
-       return null;
+       //On initialise les 2 clés
+       Cle N = clesPublique.getCle("cleRSA_N");
+       Cle d = clesPrivee.getCle("cleRSA_d");
+       
+       MotBinaire dBis = d.asMotBinaire();
+       NombreBinaire dNb = new NombreBinaire(dBis.getBitSet());
+       
+       MotBinaire NBis = N.asMotBinaire();
+       NombreBinaire NNb = new NombreBinaire(NBis.getBitSet());
+       
+       NombreBinaire n = new NombreBinaire(morceau.getBitSet());
+       n = n.puissanceModulo(dNb, NNb);
+       
+       MotBinaire res = new MotBinaire(n.asBitSet(), getTailleMorceau());
+       return res;
     }
 
     @Override
