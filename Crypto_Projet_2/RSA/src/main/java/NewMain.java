@@ -3,7 +3,6 @@ package main.java;
 
 import challenges.Challenge;
 import challenges.Chiffrer;
-import challenges.ChiffrerUnMorceau;
 import challenges.NombrePremier ;
 
 import exceptions.ExceptionCryptographie;
@@ -25,7 +24,7 @@ public class NewMain {
      * @throws exceptions.ExceptionCryptographie
      */
     public static void main(String[] args) throws ExceptionCryptographie {
-        Challenge challenge = new ChiffrerUnMorceau();
+        Challenge challenge = new Chiffrer();
     /*  import donnees.NombreBinaire; 
         NombreBinaire x = new NombreBinaire("0011111100011000");
         int s = 0;
