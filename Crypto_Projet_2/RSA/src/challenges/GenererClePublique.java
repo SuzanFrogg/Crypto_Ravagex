@@ -35,22 +35,25 @@ public class GenererClePublique extends Challenge {
     public final void executer() throws ExceptionCryptographie {
         boolean keepGoing = true; 
         try {
-
-            do {
+            while(!this.getMsgReceive().startsWith("NOK") || !this.getMsgReceive().startsWith("Defi valide") || !this.getMsgReceive().startsWith("Defi echoue!")) {
                 //Première reception contenant le nom du défi
                 //Puis Reception du message validant ou non le calcul envoyé
-                this.setMsgReceive(this.getClient().receiveMessage());
+             /*   this.setMsgReceive(this.getClient().receiveMessage());
                 //Si le calcul n'est pas validé, on sort de la boucle
-                if(this.getMsgReceive().startsWith("NOK")) {
+                if(this.getMsgReceive().startsWith("NOK") || this.getMsgReceive().startsWith("Defi valide") || this.getMsgReceive().startsWith("Defi echoue!")) {
                     keepGoing = false;
                     continue;
                 }
-              /*//Pour certain challenge envoyant deux paramètre de calcul
+              //Pour certain challenge envoyant deux paramètre de calcul
                 //La condition est passé sans soucis
                 //Ou Reception du message de fin de défi
                 this.setMsgReceive(this.getClient().receiveMessage());
               */
                 //Pour ce challenge, envoyer les 5 résultats différents
+ 
+                //Si le défi est terminé, qu'il soit réussi ou non, il faut sortir de la boucle
+                this.setMsgReceive(this.getClient().receiveMessage());
+                 
                 GenerateurDeClesRSA generator = new GenerateurDeClesRSA();
                 //Execution et renvoi du Nombre décalé
                 Cle d = generator.genererClePublique().getCle("publique");
@@ -64,13 +67,7 @@ public class GenererClePublique extends Challenge {
                 this.getClient().sendMessage(this.getMsgSend());
                 this.setMsgSend(generator.getE().toString());
                 this.getClient().sendMessage(this.getMsgSend());
-                //Si le défi est terminé, qu'il soit réussi ou non, il faut sortir de la boucle
-                if(this.getMsgReceive().startsWith("Defi valide") || this.getMsgReceive().startsWith("Defi echoue!") ) {
-                    keepGoing = false;
-                    continue;
-                }    
-
-            } while(keepGoing);            
+            }             
         } catch (IOException ex) {
             Logger.getLogger(Challenge.class.getName()).log(Level.SEVERE, null, ex);
         }

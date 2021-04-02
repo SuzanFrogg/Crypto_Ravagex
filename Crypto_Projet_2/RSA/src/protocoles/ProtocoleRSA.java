@@ -33,21 +33,23 @@ public class ProtocoleRSA implements Protocole{
         Algorithme a = new AlgorithmeRSA();
         Alice.setAlgorithme(a);
         Bob.setAlgorithme(a);
-            
-           
+        
+        GenerateurDeClesRSA generateurRSA = new GenerateurDeClesRSA();    
+        Cles clesPublique =  generateurRSA.genererClePublique();
+        Cles clesPrivee =  generateurRSA.genererClePrivee();
+        
+        Alice.setClesPrivees(clesPrivee);
+        Bob.setClesPrivees(clesPrivee);
+        
+        
         //On se fixe un message clair (non chiffré)
         MotBinaire M = new MotBinaire("01010010010000010101011001000001010001110100010101011000001000000101000001000001010100100101010001011001");
         Message message = new MessageBinaire(M);
-        GenerateurDeClesRSA generateurRSA = new GenerateurDeClesRSA();
-            
-        Cles clesPublique =  generateurRSA.genererClePublique();
-        Cles clesPrivee =  generateurRSA.genererClePrivee();
-            
+        
         //On le fait chiffrer par Alice et on le donne à l’Univers.
         Message messagecode =  Alice.chiffrer(message,clesPublique);
         Univers.addMessage("RSA", messagecode);
             
-        Bob.setClesPrivees(clesPrivee);
         //Bob récupère le message depuis l’Univers et le déchiffre.
         Message messagedecode = Bob.dechiffrer(Univers.getMessage("RSA"), clesPublique);
 
