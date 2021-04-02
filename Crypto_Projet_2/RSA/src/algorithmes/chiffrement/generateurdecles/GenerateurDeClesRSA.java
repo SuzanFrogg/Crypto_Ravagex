@@ -39,9 +39,11 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
        NombreBinaire min = new NombreBinaire(strmin);
 
         do {
-            NombreBinaire preP = random(max,min);
-            NombreBinaire preQ = random(max,min);
+            NombreBinaire preP = random(min,max);
+            NombreBinaire preQ = random(min,max);
+            System.out.println("P");
             P = RabinMiller.nombrePremier(preP);
+            System.out.println("Q");
             Q = RabinMiller.nombrePremier(preQ);
         }while(P.estEgal(Q));
         this.N = this.P.multiplication(this.Q);
@@ -53,17 +55,21 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
         //Phi = (P-1)(Q-1)
         this.phi = p1.multiplication(d1);
         //E est un nombre premier de phi
-        this.e = RabinMiller.nombrePremier(this.phi);
+        this.e = NombreBinaire.random(new NombreBinaire(3), this.phi.soustraction(One));
+        while(!this.e.PGCD(phi).estEgal(One)) {
+            this.e = NombreBinaire.random(new NombreBinaire(3), this.phi.soustraction(One));
+        }
+        
         
         
         //Création des deux clés et ajout au trousseau
-        MotBinaire motN = new MotBinaire();
-        MotBinaire motE = new MotBinaire();
+        MotBinaire motN = new MotBinaire(this.N.asBitSet(),ParametresRSA.getTailleCle());
+        MotBinaire motE = new MotBinaire(this.e.asBitSet(),ParametresRSA.getTailleCle());
         CleBinaire kN = new CleBinaire(motN);
         CleBinaire ke = new CleBinaire(motE);
 
-        cles.addCle("cleRSA_N",kN);
-        cles.addCle("cleRSA_e",ke);
+cles.addCle("cleRSA_N",kN);
+cles.addCle("cleRSA_e",ke);
         return cles;
     }
 
@@ -87,7 +93,7 @@ public class GenerateurDeClesRSA implements GenerateurDeCles{
 
      	MotBinaire motD = new MotBinaire(nbD.asBitSet(),ParametresRSA.getTailleCle());
         CleBinaire cleN = new CleBinaire(motD);
-        cles.addCle("privee", cleN);
+        cles.addCle("cleRSA_d", cleN);
         return cles;
     }
 

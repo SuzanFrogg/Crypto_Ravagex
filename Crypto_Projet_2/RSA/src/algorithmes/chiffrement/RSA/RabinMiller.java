@@ -87,6 +87,7 @@ public class RabinMiller {
         //Tant qu'il n'est pas premier, chercher pour le nombre binaire impair suivant
         while(!testRabinMiller(min)) {
             min = min.addition(new NombreBinaire(2));
+            //System.out.println(min.toString());
         }
         //Return un nombre binaire premier
         return min;

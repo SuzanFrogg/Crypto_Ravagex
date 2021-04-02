@@ -43,7 +43,7 @@ public class GenererClePrivee extends Challenge{
             generator.setE(e);
             
             //Execution et renvoi du Nombre décalé
-            Cle d = generator.genererClePrivee().getCle("privee");
+            Cle d = generator.genererClePrivee().getCle("cleRSA_d");
             
             return d.asMotBinaire().toString() ;
         } catch (ExceptionConversionImpossible ex) {

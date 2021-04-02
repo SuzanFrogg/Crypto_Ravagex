@@ -88,7 +88,7 @@ public class Personne {
         if(this.algorithme == null) {
             throw new ExceptionAlgorithmeNonDefini(this);
         }
-        return this.algorithme.dechiffrer(message, clesPubliques, clesPrivees);
+        return this.algorithme.dechiffrer(message, clesPubliques, this.clesPrivees);
     }
     
 }

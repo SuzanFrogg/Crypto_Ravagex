@@ -31,18 +31,19 @@ public class AlgorithmeRSA implements Algorithme{
        //On récupère les 2 parties de la clé RSA
        Cle N = clesPublique.getCle("cleRSA_N");
        Cle e = clesPublique.getCle("cleRSA_e");
-       
        //On convertit les clés en NombreBinaire
        MotBinaire eBis = e.asMotBinaire();
        NombreBinaire eNb = new NombreBinaire(eBis.getBitSet());
-       
+System.out.println("eBis :"+eBis.toString());
+System.out.println("eNb : "+eNb.toString());
+     
        MotBinaire NBis = N.asMotBinaire();
        NombreBinaire NNb = new NombreBinaire(NBis.getBitSet());
-       
+System.out.println("NBis : "+NBis.toString());
+System.out.println("NNB : "+NNb.toString());
        //On encode le morceau
        NombreBinaire n = new NombreBinaire(morceau.getBitSet());
        n = n.puissanceModulo(eNb, NNb);
-       
        //On renvoie le morceau encodé
        MotBinaire res = new MotBinaire(n.asBitSet(), getTailleCle());
        return res;
@@ -70,10 +71,9 @@ public class AlgorithmeRSA implements Algorithme{
        
        //On déchiffre le morceau
        NombreBinaire n = new NombreBinaire(morceau.getBitSet());
-       n = n.puissanceModulo(dNb, NNb);
        
        //On renvoie un MotBinaire de la taille d'un morceau
-       MotBinaire res = new MotBinaire(n.asBitSet(), getTailleMorceau());
+       MotBinaire res = new MotBinaire(n.puissanceModulo(dNb, NNb).asBitSet(), getTailleMorceau());
        return res;
     }
 
@@ -93,14 +93,15 @@ public class AlgorithmeRSA implements Algorithme{
         
         //on créé un tableau qui récupère les différents morceaux
         ArrayList<MotBinaire> array = mBase.scinder(getTailleMorceau());
-        
+System.out.println("Nb morceau : "+array.size());
         //on récupère et on chiffre morceau par morceau en concaténant à chaque fois
         for (int i = array.size()-1; i>=0; i--){
+System.out.println("morceau : "+i);
             MotBinaire morceau = array.get(i);
             morceau = this.chiffrerMorceau(morceau, clesPubliques);
             m = m.concatenation(morceau);
         }
-       
+System.out.println("FIN");
         //on renvoit le message chiffré
        return new MessageBinaire(m);
     }
